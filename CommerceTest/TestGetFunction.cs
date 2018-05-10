@@ -15,10 +15,17 @@ namespace CommerceTest
             Assert.IsNull(category);
         }
         [TestMethod]
-        public void Test_CategoryName()
+        public void Test_FindByProductName()
         {
             var repository = new ProductRepository();
             var product = repository.FindByProductName("abc");
+            Assert.IsNull(product);
+        }
+        [TestMethod]
+        public void Test_FindByName()
+        {
+            var repository = new EmployeesRepository();
+            var product = repository.FindByName("abc");
             Assert.IsNull(product);
         }
     }

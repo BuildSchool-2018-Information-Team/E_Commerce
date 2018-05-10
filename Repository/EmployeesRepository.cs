@@ -89,7 +89,32 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
 
             return employee;
         }
+        public Employees FindByName(string Name)
+        {
+            SqlConnection connection = new SqlConnection(
+                "data source=.; database=Commerce; integrated security=true");
+            var sql = "SELECT * FROM Employees WHERE Name = @Name";
 
+            SqlCommand command = new SqlCommand(sql, connection);
+
+            command.Parameters.AddWithValue("@Name", Name);
+
+            connection.Open();
+
+            var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
+            var properties = typeof(Employees).GetProperties();
+            Employees employee = null;
+
+            while (reader.Read())
+            {
+                employee = new Employees();
+                employee = DbReaderModelBinder<Employees>.Bind(reader);
+            }
+
+            reader.Close();
+
+            return employee;
+        }
         public IEnumerable<Employees> GetAll()
         {
             SqlConnection connection = new SqlConnection(
