@@ -22,6 +22,20 @@ namespace CommerceTest
             var product = repository.GetAll();
             Assert.IsTrue(product.Count() == 0);
         }
+        [TestMethod]
+        public void Test_GetAll_Employee()
+        {
+            var repository = new EmployeesRepository();
+            var employee = repository.GetAll();
+            Assert.IsTrue(employee.Count() == 0);
+        }
+        [TestMethod]
+        public void Test_GetAll_Member()
+        {
+            var repository = new MemberRepository();
+            var member = repository.GetAll();
+            Assert.IsTrue(member.Count() == 0);
+        }
     }
 }
 
