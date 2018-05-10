@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BuildSchool.MvcSolution.OnlineStore.Repository
 {
-    public class OderDetailsRepository
+    public class OrderDetailsRepository
     {
         public void Create(OrderDetails model)
         {

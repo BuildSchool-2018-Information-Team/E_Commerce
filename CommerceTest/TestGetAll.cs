@@ -36,6 +36,27 @@ namespace CommerceTest
             var member = repository.GetAll();
             Assert.IsTrue(member.Count() == 0);
         }
+        [TestMethod]
+        public void Test_GetAll_Order()
+        {
+            var repository = new OrdersRepository();
+            var orders = repository.GetAll();
+            Assert.IsTrue(orders.Count() == 0);
+        }
+        [TestMethod]
+        public void Test_GetAll_ProductFormat()
+        {
+            var repository = new ProductFormatRepository();
+            var product = repository.GetAll();
+            Assert.IsTrue(product.Count() == 0);
+        }
+        [TestMethod]
+        public void Test_GetAll_OrderDetails()
+        {
+            var repository = new OrderDetailsRepository();
+            var orderdetails = repository.GetAll();
+            Assert.IsTrue(orderdetails.Count() == 0);
+        }
     }
 }
 
