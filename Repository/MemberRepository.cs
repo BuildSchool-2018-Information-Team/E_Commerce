@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Utils;
 
 namespace BuildSchool.MvcSolution.OnlineStore.Repository
 {
@@ -79,21 +80,18 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
             connection.Open();
 
             var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
-            var members = new Members();
+            var properties = typeof(Members).GetProperties();
+            Members member = null;
 
             while (reader.Read())
             {
-                members.MemberID = reader.GetValue(reader.GetOrdinal("MemberID")).ToString();
-                members.Password = reader.GetValue(reader.GetOrdinal("Password")).ToString();
-                members.Name = reader.GetValue(reader.GetOrdinal("Name")).ToString();
-                members.Phone = reader.GetValue(reader.GetOrdinal("Phone")).ToString();
-                members.Address = reader.GetValue(reader.GetOrdinal("Address")).ToString();
-                members.Email = reader.GetValue(reader.GetOrdinal("Email")).ToString();
+                member = new Members();
+                member = DbReaderModelBinder<Members>.Bind(reader);
             }
 
             reader.Close();
 
-            return members;
+            return member;
         }
 
         public IEnumerable<Members> GetAll()
@@ -106,17 +104,13 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
             connection.Open();
 
             var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
+            var properties = typeof(Members).GetProperties();
             var members = new List<Members>();
 
             while (reader.Read())
             {
                 var member = new Members();
-                member.MemberID = reader.GetValue(reader.GetOrdinal("MemberID")).ToString();
-                member.Password = reader.GetValue(reader.GetOrdinal("Password")).ToString();
-                member.Name = reader.GetValue(reader.GetOrdinal("Name")).ToString();
-                member.Phone = reader.GetValue(reader.GetOrdinal("Phone")).ToString();
-                member.Address = reader.GetValue(reader.GetOrdinal("Address")).ToString();
-                member.Email = reader.GetValue(reader.GetOrdinal("Email")).ToString();
+                member = DbReaderModelBinder<Members>.Bind(reader);
                 members.Add(member);
             }
 

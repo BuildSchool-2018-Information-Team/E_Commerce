@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Utils;
 
 namespace BuildSchool.MvcSolution.OnlineStore.Repository
 {
@@ -86,20 +87,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
             while (reader.Read())
             {
                 product = new Product();
-                for (var i = 0; i < reader.FieldCount; i++)
-                {
-                    var fieldName = reader.GetName(i);
-                    var property = properties.FirstOrDefault((x) => x.Name == fieldName);
-
-                    if (property == null)
-                    {
-                        continue;
-                    }
-                    if (!reader.IsDBNull(i))
-                    {
-                        property.SetValue(product, reader.GetValue(i));
-                    }
-                }
+                product = DbReaderModelBinder<Product>.Bind(reader);
             }
 
             reader.Close();
@@ -123,20 +111,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
             while (reader.Read())
             {
                 var product = new Product();
-                for (var i = 0; i < reader.FieldCount; i++)
-                {
-                    var fieldName = reader.GetName(i);
-                    var property = properties.FirstOrDefault((x) => x.Name == fieldName);
-
-                    if (property == null)
-                    {
-                        continue;
-                    }
-                    if (!reader.IsDBNull(i))
-                    {
-                        property.SetValue(product, reader.GetValue(i));
-                    }
-                }
+                product = DbReaderModelBinder<Product>.Bind(reader);
 
                 products.Add(product);
             }

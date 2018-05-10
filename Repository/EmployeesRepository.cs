@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Utils;
 
 namespace BuildSchool.MvcSolution.OnlineStore.Repository
 {
@@ -75,19 +76,18 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
             connection.Open();
 
             var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
-            var employees = new Employees();
+            var properties = typeof(Employees).GetProperties();
+            Employees employee = null;
 
             while (reader.Read())
             {
-                employees.EmployeeID = (int)reader.GetValue(reader.GetOrdinal("EmployeeID"));
-                employees.Name = reader.GetValue(reader.GetOrdinal("Name")).ToString();
-                employees.Phone = reader.GetValue(reader.GetOrdinal("Phone")).ToString();
-                employees.HireDate = (DateTime)reader.GetValue(reader.GetOrdinal("HireDate"));
+                employee = new Employees();
+                employee = DbReaderModelBinder<Employees>.Bind(reader);
             }
 
             reader.Close();
 
-            return employees;
+            return employee;
         }
 
         public IEnumerable<Employees> GetAll()
@@ -100,15 +100,13 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
             connection.Open();
 
             var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
+            var properties = typeof(Employees).GetProperties();
             var employees = new List<Employees>();
 
             while (reader.Read())
             {
                 var employee = new Employees();
-                employee.EmployeeID = (int)reader.GetValue(reader.GetOrdinal("EmployeeID"));
-                employee.Name = reader.GetValue(reader.GetOrdinal("Name")).ToString();
-                employee.Phone = reader.GetValue(reader.GetOrdinal("Phone")).ToString();
-                employee.HireDate = (DateTime)reader.GetValue(reader.GetOrdinal("HireDate"));
+                employee = DbReaderModelBinder<Employees>.Bind(reader);
                 employees.Add(employee);
             }
 
