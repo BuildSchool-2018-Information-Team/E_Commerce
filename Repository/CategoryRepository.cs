@@ -86,7 +86,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
 
             return category;
         }
-        public Category GetCategoryName(string CategoryName)
+        public Category FindCategoryName(string CategoryName)
         {
             SqlConnection connection = new SqlConnection(
                 "data source=.; database=Commerce; integrated security=true");
