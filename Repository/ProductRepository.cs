@@ -94,7 +94,32 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
 
             return product;
         }
+        public Product FindByProductName(string ProductName)
+        {
+            SqlConnection connection = new SqlConnection(
+                "data source=.; database=Commerce; integrated security=true");
+            var sql = "SELECT * FROM Products WHERE ProductName = @ProductName";
 
+            SqlCommand command = new SqlCommand(sql, connection);
+
+            command.Parameters.AddWithValue("@ProductName", ProductName);
+
+            connection.Open();
+
+            var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
+            Product product = null;
+            var properties = typeof(Product).GetProperties();
+
+            while (reader.Read())
+            {
+                product = new Product();
+                product = DbReaderModelBinder<Product>.Bind(reader);
+            }
+
+            reader.Close();
+
+            return product;
+        }
         public IEnumerable<Product> GetAll()
         {
             SqlConnection connection = new SqlConnection(

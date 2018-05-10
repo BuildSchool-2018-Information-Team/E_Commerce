@@ -86,7 +86,32 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
 
             return category;
         }
+        public Category GetCategoryName(string CategoryName)
+        {
+            SqlConnection connection = new SqlConnection(
+                "data source=.; database=Commerce; integrated security=true");
+            var sql = "SELECT * FROM Category WHERE CategoryName = @CategoryName";
 
+            SqlCommand command = new SqlCommand(sql, connection);
+
+            command.Parameters.AddWithValue("@CategoryName", CategoryName);
+
+            connection.Open();
+
+            var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
+            var properties = typeof(Category).GetProperties();
+            Category category = null;
+
+            while (reader.Read())
+            {
+                category = new Category();
+                category = DbReaderModelBinder<Category>.Bind(reader);
+            }
+
+            reader.Close();
+
+            return category;
+        }
         public IEnumerable<Category> GetAll()
         {
             SqlConnection connection = new SqlConnection(
