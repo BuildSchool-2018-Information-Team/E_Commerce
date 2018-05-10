@@ -73,12 +73,26 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
             connection.Open();
 
             var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
-            var category = new Category();
+            var properties = typeof(Category).GetProperties();
+            Category category = null;
 
             while (reader.Read())
             {
-                category.CategoryID = (int)reader.GetValue(reader.GetOrdinal("CategoryID"));
-                category.CategoryName = reader.GetValue(reader.GetOrdinal("CategoryName")).ToString();
+                category = new Category();
+                for (var i = 0; i < reader.FieldCount; i++)
+                {
+                    var fieldName = reader.GetName(i);
+                    var property = properties.FirstOrDefault((x) => x.Name == fieldName);
+
+                    if (property == null)
+                    {
+                        continue;
+                    }
+                    if (!reader.IsDBNull(i))
+                    {
+                        property.SetValue(category, reader.GetValue(i));
+                    }
+                }
             }
 
             reader.Close();
@@ -96,14 +110,26 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
             connection.Open();
 
             var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
+            var properties = typeof(Category).GetProperties();
             var categories = new List<Category>();
 
             while (reader.Read())
             {
                 var category = new Category();
-                category.CategoryID = (int)reader.GetValue(reader.GetOrdinal("CategoryID"));
-                category.CategoryName = reader.GetValue(reader.GetOrdinal("CategoryName")).ToString();
+                for (var i = 0; i < reader.FieldCount; i++)
+                {
+                    var fieldName = reader.GetName(i);
+                    var property = properties.FirstOrDefault((x) => x.Name == fieldName);
 
+                    if (property == null)
+                    {
+                        continue;
+                    }
+                    if (!reader.IsDBNull(i))
+                    {
+                        property.SetValue(category, reader.GetValue(i));
+                    }
+                }
                 categories.Add(category);
             }
 
