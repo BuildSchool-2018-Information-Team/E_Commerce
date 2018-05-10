@@ -104,6 +104,58 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
 
             return Order;
         }
+        public Orders GetStatus(string Status)
+        {
+            SqlConnection connection = new SqlConnection(
+                "data source=.; database=Commerce; integrated security=true");
+            var sql = "select * FROM Orders WHERE Status = @Status";
+
+            SqlCommand command = new SqlCommand(sql, connection);
+
+            command.Parameters.AddWithValue("@Status", Status);
+
+            connection.Open();
+
+            var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
+            var properties = typeof(Orders).GetProperties();
+            Orders Order = null;
+
+            while (reader.Read())
+            {
+                Order = new Orders();
+                Order = DbReaderModelBinder<Orders>.Bind(reader);
+
+            }
+            reader.Close();
+
+            return Order;
+        }
+        public Orders GetOrderDate(string OrderDate)
+        {
+            SqlConnection connection = new SqlConnection(
+                "data source=.; database=Commerce; integrated security=true");
+            var sql = "select * FROM Orders WHERE OrderDate LIKE '@OrderDate%'";
+
+            SqlCommand command = new SqlCommand(sql, connection);
+
+            command.Parameters.AddWithValue("@OrderDate", OrderDate);
+
+            connection.Open();
+
+            var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
+            var properties = typeof(Orders).GetProperties();
+            Orders Order = null;
+
+            while (reader.Read())
+            {
+                Order = new Orders();
+                Order = DbReaderModelBinder<Orders>.Bind(reader);
+
+            }
+            reader.Close();
+
+            return Order;
+        }
         public IEnumerable<Orders> GetAll()
         {
             SqlConnection connection = new SqlConnection(
