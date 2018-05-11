@@ -115,6 +115,35 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
 
             return employee;
         }
+
+        public IEnumerable<Employees> FindByHireYear(int startYear, int endYear)
+        {
+            SqlConnection connection = new SqlConnection(
+                "data source=.; database=Commerce; integrated security=true");
+            var sql = "SELECT * FROM Employees WHERE HireDate BETWEEN @startYear AND @endYear";
+
+            SqlCommand command = new SqlCommand(sql, connection);
+
+            command.Parameters["@startYear"].Value = startYear;
+            command.Parameters["@endYear"].Value = endYear;
+
+            connection.Open();
+
+            var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
+            var employees = new List<Employees>();
+
+            while (reader.Read())
+            {
+                Employees employee = new Employees();
+                employee = DbReaderModelBinder<Employees>.Bind(reader);
+                employees.Add(employee);
+            }
+
+            reader.Close();
+
+            return employees;
+        }
+
         public IEnumerable<Employees> GetAll()
         {
             SqlConnection connection = new SqlConnection(
@@ -125,7 +154,6 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
             connection.Open();
 
             var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
-            var properties = typeof(Employees).GetProperties();
             var employees = new List<Employees>();
 
             while (reader.Read())
