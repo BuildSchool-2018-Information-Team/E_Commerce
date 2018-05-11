@@ -40,7 +40,7 @@ namespace CommerceTest
         public void Test_GetOrderDate()
         {
             var repository = new OrdersRepository();
-            var orders = repository.GetOrderDate("1999/05/01");
+            var orders = repository.GetOrderDate("2018%");
             Assert.IsTrue(orders.Count() == 0);
         }
         [TestMethod]
