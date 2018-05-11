@@ -120,7 +120,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
         {
             SqlConnection connection = new SqlConnection(
                 "data source=.; database=Commerce; integrated security=true");
-            var sql = "SELECT * FROM Employees WHERE HireDate BETWEEN @startYear AND @endYear";
+            var sql = "SELECT * FROM Employees WHERE YEAR(HireDate) BETWEEN @startYear AND @endYear";
 
             SqlCommand command = new SqlCommand(sql, connection);
 
