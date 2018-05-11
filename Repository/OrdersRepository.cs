@@ -104,7 +104,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
 
             return Order;
         }
-        public Orders GetStatus(string Status)
+        public IEnumerable<Orders> GetStatus(string Status)
         {
             SqlConnection connection = new SqlConnection(
                 "data source=.; database=Commerce; integrated security=true");
@@ -118,19 +118,19 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
 
             var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
             var properties = typeof(Orders).GetProperties();
-            Orders Order = null;
+            var Orders = new List<Orders>();
 
             while (reader.Read())
             {
-                Order = new Orders();
+                var Order = new Orders();
                 Order = DbReaderModelBinder<Orders>.Bind(reader);
-
+                Orders.Add(Order);
             }
             reader.Close();
 
-            return Order;
+            return Orders;
         }
-        public Orders GetOrderDate(string OrderDate)
+        public IEnumerable<Orders> GetOrderDate(string OrderDate)
         {
             SqlConnection connection = new SqlConnection(
                 "data source=.; database=Commerce; integrated security=true");
@@ -144,17 +144,17 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
 
             var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
             var properties = typeof(Orders).GetProperties();
-            Orders Order = null;
+            var Orders = new List<Orders>();
 
             while (reader.Read())
             {
-                Order = new Orders();
+                var Order = new Orders();
                 Order = DbReaderModelBinder<Orders>.Bind(reader);
-
+                Orders.Add(Order);
             }
             reader.Close();
 
-            return Order;
+            return Orders;
         }
         public IEnumerable<Orders> GetAll()
         {

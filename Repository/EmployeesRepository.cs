@@ -124,8 +124,8 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
 
             SqlCommand command = new SqlCommand(sql, connection);
 
-            command.Parameters["@startYear"].Value = startYear;
-            command.Parameters["@endYear"].Value = endYear;
+            command.Parameters.AddWithValue("@startYear", startYear);
+            command.Parameters.AddWithValue("@endYear", endYear);
 
             connection.Open();
 
