@@ -52,6 +52,7 @@
     <Compile Include="TestGetAll.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestGetFunction.cs" />
+    <Compile Include="TestTableCreate.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
