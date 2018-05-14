@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace CommerceTest
 {
+    [TestClass]
     public class TestFindByID
     {
         [TestMethod]
