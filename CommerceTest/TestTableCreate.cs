@@ -15,19 +15,16 @@ namespace CommerceTest
             var repository = new CategoryRepository();
             //Category category = new Category
             //{
-            //    CategoryID = 1,
             //    CategoryName = "上衣"
             //};
             //repository.Create(category);
             //Category category1 = new Category
             //{
-            //    CategoryID = 2,
             //    CategoryName = "外套"
             //};
             //repository.Create(category1);
             //Category category2 = new Category
             //{
-            //    CategoryID = 3,
             //    CategoryName = "褲子"
             //};
             //repository.Create(category2);
@@ -40,7 +37,6 @@ namespace CommerceTest
             var repository = new ProductRepository();
             //Product product = new Product
             //{
-            //    ProductID = 1,
             //    ProductName = "短T",
             //    UnitPrice = 470,
             //    Description = "如對商品尺寸有任何疑問，請先私訊我詢問，以免造成彼此困擾~感謝~",
@@ -50,7 +46,6 @@ namespace CommerceTest
             //repository.Create(product);
             //Product product1 = new Product
             //{
-            //    ProductID = 2,
             //    ProductName = "牛仔破褲",
             //    UnitPrice = 368,
             //    Description = "如對商品尺寸有任何疑問，請先私訊我詢問，以免造成彼此困擾~感謝~",
@@ -60,7 +55,6 @@ namespace CommerceTest
             //repository.Create(product1);
             //Product product2 = new Product
             //{
-            //    ProductID = 3,
             //    ProductName = "防風外套",
             //    UnitPrice = 730,
             //    Description = "如對商品尺寸有任何疑問，請先私訊我詢問，以免造成彼此困擾~感謝~",
@@ -70,7 +64,6 @@ namespace CommerceTest
             //repository.Create(product2);
             //Product product3 = new Product
             //{
-            //    ProductID = 4,
             //    ProductName = "760C圖案短T",
             //    UnitPrice = 199,
             //    Description = "如對商品尺寸有任何疑問，請先私訊我詢問，以免造成彼此困擾~感謝~",
@@ -87,7 +80,6 @@ namespace CommerceTest
             var repository = new ProductFormatRepository();
             //ProductFormat productFormat = new ProductFormat()
             //{
-            //    ProductFormatID = 1,
             //    ProductID = 1,
             //    Color = "紅色",
             //    Size = "L",
@@ -96,7 +88,6 @@ namespace CommerceTest
             //repository.Create(productFormat);
             //ProductFormat productFormat1 = new ProductFormat()
             //{
-            //    ProductFormatID = 2,
             //    ProductID = 1,
             //    Color = "藍色",
             //    Size = "M",
@@ -105,7 +96,6 @@ namespace CommerceTest
             //repository.Create(productFormat1);
             //ProductFormat productFormat2 = new ProductFormat()
             //{
-            //    ProductFormatID = 3,
             //    ProductID = 2,
             //    Color = "黑色",
             //    Size = "S",
@@ -148,7 +138,6 @@ namespace CommerceTest
             var repository = new EmployeesRepository();
             //Employees employee = new Employees()
             //{
-            //    EmployeeID = 1 ,
             //    Name = "洪識超" ,
             //    Phone = "0123456789" ,
             //    HireDate = new DateTime(1996, 06, 01),
@@ -156,7 +145,6 @@ namespace CommerceTest
             //repository.Create(employee);
             //Employees employee1 = new Employees()
             //{
-            //    EmployeeID = 2,
             //    Name = "簡愷祐",
             //    Phone = "0123456789",
             //    HireDate = new DateTime(1996, 01, 29),
@@ -164,7 +152,6 @@ namespace CommerceTest
             //repository.Create(employee1);
             //Employees employee2 = new Employees()
             //{
-            //    EmployeeID = 3,
             //    Name = "黃思源",
             //    Phone = "0123456789",
             //    HireDate = new DateTime(1996, 02, 16),
@@ -180,7 +167,6 @@ namespace CommerceTest
             //Nullable<DateTime> n = null;
             //Orders order = new Orders()
             //{
-            //    OrderID = 1,
             //    EmployeeID = 1,
             //    MemberID = "123",
             //    ShipName = "黃宗畦",
@@ -195,7 +181,6 @@ namespace CommerceTest
             //repository.Create(order);
             //Orders order1 = new Orders()
             //{
-            //    OrderID = 2,
             //    EmployeeID = 2,
             //    MemberID = "123",
             //    ShipName = "黃宗畦",
