@@ -1,4 +1,5 @@
 ﻿using BuildSchool.MvcSolution.OnlineStore.Models;
+using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -69,81 +70,24 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
 
         public Product FindById(int ProductID)
         {
-            SqlConnection connection = new SqlConnection(
-                "data source=.; database=Commerce; integrated security=true");
-            var sql = "SELECT * FROM Products WHERE ProductID = @ProductID";
-
-            SqlCommand command = new SqlCommand(sql, connection);
-
-            command.Parameters.AddWithValue("@ProductID", ProductID);
-
-            connection.Open();
-
-            var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
+            IDbConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
+            var result = connection.Query<Product>("SELECT * FROM Products WHERE ProductID = @ProductID", new { @ProductID = ProductID });
             Product product = null;
-            var properties = typeof(Product).GetProperties();
-
-            while (reader.Read())
+            foreach (var item in result)
             {
-                product = new Product();
-                product = DbReaderModelBinder<Product>.Bind(reader);
+                product = item;
             }
-
-            reader.Close();
-
             return product;
         }
-        public Product FindByProductName(string ProductName)
+        public IEnumerable<Product> FindByProductName(string ProductName)
         {
-            SqlConnection connection = new SqlConnection(
-                "data source=.; database=Commerce; integrated security=true");
-            var sql = "SELECT * FROM Products WHERE ProductName = @ProductName";
-
-            SqlCommand command = new SqlCommand(sql, connection);
-
-            command.Parameters.AddWithValue("@ProductName", ProductName);
-
-            connection.Open();
-
-            var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
-            Product product = null;
-            var properties = typeof(Product).GetProperties();
-
-            while (reader.Read())
-            {
-                product = new Product();
-                product = DbReaderModelBinder<Product>.Bind(reader);
-            }
-
-            reader.Close();
-
-            return product;
+            IDbConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
+            return connection.Query<Product>("SELECT * FROM Products WHERE ProductName = @ProductName", new { @ProductName = ProductName });
         }
         public IEnumerable<Product> GetAll()
         {
-            SqlConnection connection = new SqlConnection(
-                "data source=.; database=Commerce; integrated security=true");
-            var sql = "SELECT * FROM Products";
-
-            SqlCommand command = new SqlCommand(sql, connection);
-            connection.Open();
-
-            var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
-            var products = new List<Product>();
-            var properties = typeof(Product).GetProperties();
-
-            while (reader.Read())
-            {
-                var product = new Product();
-                product = DbReaderModelBinder<Product>.Bind(reader);
-
-                products.Add(product);
-            }
-
-            reader.Close();
-
-            return products;
-
+            IDbConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
+            return connection.Query<Product>("SELECT * FROM Products ");
         }
     }
 }
