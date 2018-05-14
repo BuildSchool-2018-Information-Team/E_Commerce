@@ -41,7 +41,7 @@ namespace CommerceTest
             //    UnitPrice = 470,
             //    Description = "如對商品尺寸有任何疑問，請先私訊我詢問，以免造成彼此困擾~感謝~",
             //    CategoryID = 1,
-            //    ProductImage = "test1"  
+            //    ProductImage = "test1"
             //};
             //repository.Create(product);
             //Product product1 = new Product
@@ -138,8 +138,8 @@ namespace CommerceTest
             var repository = new EmployeesRepository();
             //Employees employee = new Employees()
             //{
-            //    Name = "洪識超" ,
-            //    Phone = "0123456789" ,
+            //    Name = "洪識超",
+            //    Phone = "0123456789",
             //    HireDate = new DateTime(1996, 06, 01),
             //};
             //repository.Create(employee);
@@ -164,35 +164,35 @@ namespace CommerceTest
         public void Orders_Create()
         {
             var repository = new OrdersRepository();
-            //Nullable<DateTime> n = null;
-            //Orders order = new Orders()
-            //{
-            //    EmployeeID = 1,
-            //    MemberID = "123",
-            //    ShipName = "黃宗畦",
-            //    ShipAddress = "300新竹市香山區五福路二段707號",
-            //    ShipPhone = "0123456789",
-            //    ShippedDate = new DateTime(2018, 05, 13),
-            //    OrderDate = new DateTime(2018, 05, 12),
-            //    ReceiptedDate = n,
-            //    Discount = 0,
-            //    Status = "派送中"
-            //};
-            //repository.Create(order);
-            //Orders order1 = new Orders()
-            //{
-            //    EmployeeID = 2,
-            //    MemberID = "123",
-            //    ShipName = "黃宗畦",
-            //    ShipAddress = "300新竹市香山區五福路二段707號",
-            //    ShipPhone = "0123456789",
-            //    ShippedDate = n,
-            //    OrderDate = new DateTime(2018, 05, 12),
-            //    ReceiptedDate = n,
-            //    Discount = 100,
-            //    Status = "已下定"
-            //};
-            //repository.Create(order1);
+            Nullable<DateTime> n = null;
+            Orders order = new Orders()
+            {
+                EmployeeID = 1,
+                MemberID = "123",
+                ShipName = "黃宗畦",
+                ShipAddress = "300新竹市香山區五福路二段707號",
+                ShipPhone = "0123456789",
+                ShippedDate = new DateTime(2018, 05, 13),
+                OrderDate = new DateTime(2018, 05, 12),
+                ReceiptedDate = n,
+                Discount = 0,
+                Status = "派送中"
+            };
+            repository.Create(order);
+            Orders order1 = new Orders()
+            {
+                EmployeeID = 2,
+                MemberID = "123",
+                ShipName = "黃宗畦",
+                ShipAddress = "300新竹市香山區五福路二段707號",
+                ShipPhone = "0123456789",
+                ShippedDate = n,
+                OrderDate = new DateTime(2018, 05, 12),
+                ReceiptedDate = n,
+                Discount = 100,
+                Status = "已下定"
+            };
+            repository.Create(order1);
             var orders = repository.GetAll();
             Assert.IsTrue(orders.Count() > 0);
         }
@@ -200,30 +200,30 @@ namespace CommerceTest
         public void OrderDetails_Create()
         {
             var repository = new OrderDetailsRepository();
-            //OrderDetails orderdetail = new OrderDetails()
-            //{
-            //    OrderID = 1,
-            //    ProductFormatID = 1,
-            //    Quantity = 10,
-            //    UnitPrice = 470
-            //};
-            //repository.Create(orderdetail);
-            //OrderDetails orderdetail1 = new OrderDetails()
-            //{
-            //    OrderID = 2,
-            //    ProductFormatID = 2,
-            //    Quantity = 5,
-            //    UnitPrice = 470
-            //};
-            //repository.Create(orderdetail1);
-            //OrderDetails orderdetail2 = new OrderDetails()
-            //{
-            //    OrderID = 3,
-            //    ProductFormatID = 1,
-            //    Quantity = 50,
-            //    UnitPrice = 470
-            //};
-            //repository.Create(orderdetail2);
+            OrderDetails orderdetail = new OrderDetails()
+            {
+                OrderID = 1,
+                ProductFormatID = 1,
+                Quantity = 10,
+                UnitPrice = 470
+            };
+            repository.Create(orderdetail);
+            OrderDetails orderdetail1 = new OrderDetails()
+            {
+                OrderID = 2,
+                ProductFormatID = 2,
+                Quantity = 5,
+                UnitPrice = 470
+            };
+            repository.Create(orderdetail1);
+            OrderDetails orderdetail2 = new OrderDetails()
+            {
+                OrderID = 3,
+                ProductFormatID = 1,
+                Quantity = 50,
+                UnitPrice = 470
+            };
+            repository.Create(orderdetail2);
             var orders = repository.GetAll();
             Assert.IsTrue(orders.Count() > 0);
         }
