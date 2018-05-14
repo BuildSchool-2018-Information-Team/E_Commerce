@@ -44,7 +44,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
         {
             SqlConnection connection = new SqlConnection(
                 "data source=.; database=Commerce; integrated security=true");
-            var sql = "UPDATE Orders SET OrderID = @OrderID, ProductFormatID = @ProductFormatID, Quantity = @Quantity, UnitPrice = @UnitPrice WHERE OrderID = @OrderID AND ProductFormatID = @ProductFormatID";
+            var sql = "UPDATE OrderDetails SET OrderID = @OrderID, ProductFormatID = @ProductFormatID, Quantity = @Quantity, UnitPrice = @UnitPrice WHERE OrderID = @OrderID AND ProductFormatID = @ProductFormatID";
 
             SqlCommand command = new SqlCommand(sql, connection);
 
@@ -72,7 +72,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
             command.ExecuteNonQuery();
             connection.Close();
         }
-
+        //更改
         public OrderDetails FindById(int OrderID)
         {
             IDbConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
