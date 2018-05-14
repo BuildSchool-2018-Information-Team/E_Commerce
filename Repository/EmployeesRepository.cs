@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Utils;
+using Dapper;
 
 namespace BuildSchool.MvcSolution.OnlineStore.Repository
 {
@@ -142,14 +143,8 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
             IDbConnection connection = new SqlConnection(
                 "data source=.; database=Commerce; integrated security=true");
 
-            var result = connection.Query<Employees>("SELECT * FROM Employees WHERE YEAR(HireDate) BETWEEN @startYear AND @endYear ORDER BY HireDate DESC", new { @startYear = startYear, @endYear = endYear });
-            var employees = new List<Employees>();
-            foreach (var item in result)
-            {
-                employees.Add(item);
-            }
-            return employees;
-
+            return connection.Query<Employees>("SELECT * FROM Employees WHERE YEAR(HireDate) BETWEEN @startYear AND @endYear ORDER BY HireDate DESC", new { @startYear = startYear, @endYear = endYear });
+            
             //SqlConnection connection = new SqlConnection(
             //    "data source=.; database=Commerce; integrated security=true");
             //var sql = "SELECT * FROM Employees WHERE YEAR(HireDate) BETWEEN @startYear AND @endYear ORDER BY HireDate DESC";
@@ -181,13 +176,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
             IDbConnection connection = new SqlConnection(
                 "data source=.; database=Commerce; integrated security=true");
 
-            var result = connection.Query<Employees>("SELECT * FROM employees");
-            var employees = new List<Employees>();
-            foreach (var item in result)
-            {
-                employees.Add(item);
-            }
-            return employees;
+            return connection.Query<Employees>("SELECT * FROM employees");
 
             //SqlConnection connection = new SqlConnection(
             //    "data source=.; database=Commerce; integrated security=true");

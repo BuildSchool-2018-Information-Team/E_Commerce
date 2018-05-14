@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Utils;
+using Dapper;
 
 namespace BuildSchool.MvcSolution.OnlineStore.Repository
 {
@@ -110,14 +111,8 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
             IDbConnection connection = new SqlConnection(
                 "data source=.; database=Commerce; integrated security=true");
 
-            var result = connection.Query<Members>("SELECT * FROM Members");
-            var members = new List<Members>();
-            foreach (var item in result)
-            {
-                members.Add(item);
-            }
-            return members;
-
+            return connection.Query<Members>("SELECT * FROM Members");
+           
             //SqlConnection connection = new SqlConnection(
             //    "data source=.; database=Commerce; integrated security=true");
             //var sql = "SELECT * FROM Members";
