@@ -15,25 +15,35 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
         {
             SqlConnection connection = new SqlConnection(
                 "data source=.; database=Commerce; integrated security=true");
-            var sql = "INSERT INTO OrderDetails VALUES (@OrderID, @ProductFormatID, @Quantity, @UnitPrice)";
+            var sql = "INSERT INTO OrderDetails VALUES (@OrderID, @ProductFormatID, @Quantity, @UnitPrice) ";
 
-            SqlCommand command = new SqlCommand(sql, connection);
+            var request = new ProductFormatRepository();
+            var product = request.FindById(model.ProductFormatID);
+            if ((product.StockQuantity - model.Quantity) >= 0)
+            {
+                sql = sql + "UPDATE ProductFormat SET StockQuantity = StockQuantity - @Quantity WHERE ProductFormatID = @ProductFormatID";
+                SqlCommand command = new SqlCommand(sql, connection);
 
-            command.Parameters.AddWithValue("@OrderID", model.OrderID);
-            command.Parameters.AddWithValue("@ProductFormatID", model.ProductFormatID);
-            command.Parameters.AddWithValue("@Quantity", model.Quantity);
-            command.Parameters.AddWithValue("@UnitPrice", model.UnitPrice);
+                command.Parameters.AddWithValue("@OrderID", model.OrderID);
+                command.Parameters.AddWithValue("@ProductFormatID", model.ProductFormatID);
+                command.Parameters.AddWithValue("@Quantity", model.Quantity);
+                command.Parameters.AddWithValue("@UnitPrice", model.UnitPrice);
 
-            connection.Open();
-            command.ExecuteNonQuery();
-            connection.Close();
+                connection.Open();
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
+            else
+            {
+
+            }
         }
 
         public void Update(OrderDetails model)
         {
             SqlConnection connection = new SqlConnection(
                 "data source=.; database=Commerce; integrated security=true");
-            var sql = "INSERT INTO OrderDetails VALUES (@OrderID, @ProductFormatID, @Quantity, @UnitPrice)";
+            var sql = "UPDATE Orders SET OrderID = @OrderID, ProductFormatID = @ProductFormatID, Quantity = @Quantity, UnitPrice = @UnitPrice WHERE OrderID = @OrderID";
 
             SqlCommand command = new SqlCommand(sql, connection);
 
