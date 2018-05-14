@@ -36,7 +36,7 @@ namespace CommerceTest
         public void Test_FindByID_Member()
         {
             var repository = new MemberRepository();
-            var member = repository.FindById("abc");
+            var member = repository.FindById("123");
             Assert.IsNotNull(member);
         }
         [TestMethod]
