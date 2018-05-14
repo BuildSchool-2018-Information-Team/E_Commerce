@@ -89,7 +89,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
 
             while (reader.Read())
             {
-                orderDetails.OrderID = (int)reader.GetValue(reader.GetOrdinal("OderID"));
+                orderDetails.OrderID = (int)reader.GetValue(reader.GetOrdinal("OrderID"));
                 orderDetails.ProductFormatID = (int)reader.GetValue(reader.GetOrdinal("ProductFormatID"));
                 orderDetails.Quantity = (int)reader.GetValue(reader.GetOrdinal("Quantity"));
                 orderDetails.UnitPrice = (decimal)reader.GetValue(reader.GetOrdinal("UnitPrice"));
@@ -115,7 +115,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
             while (reader.Read())
             {
                 var orderDetail = new OrderDetails();
-                orderDetail.OrderID = (int)reader.GetValue(reader.GetOrdinal("OderID"));
+                orderDetail.OrderID = (int)reader.GetValue(reader.GetOrdinal("OrderID"));
                 orderDetail.ProductFormatID = (int)reader.GetValue(reader.GetOrdinal("ProductFormatID"));
                 orderDetail.Quantity = (int)reader.GetValue(reader.GetOrdinal("Quantity"));
                 orderDetail.UnitPrice = (decimal)reader.GetValue(reader.GetOrdinal("UnitPrice"));
