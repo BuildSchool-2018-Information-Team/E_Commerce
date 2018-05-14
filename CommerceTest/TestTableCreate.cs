@@ -211,28 +211,36 @@ namespace CommerceTest
             var orders = repository.GetAll();
             Assert.IsTrue(orders.Count() > 0);
         }
-        //[TestMethod]
-        //public void OrderDetails_Create()
-        //{
-        //    var repository = new OrderDetailsRepository();
-        //    OrderDetails orderdetail = new OrderDetails()
-        //    {
-        //        OrderID = 1,
-        //        ProductFormatID = 1,
-        //        Quantity = 10,
-        //        UnitPrice = 470
-        //    };
-        //    repository.Create(orderdetail);
-        //    OrderDetails orderdetail1 = new OrderDetails()
-        //    {
-        //        OrderID = 2,
-        //        ProductFormatID = 2,
-        //        Quantity = 5,
-        //        UnitPrice = 470
-        //    };
-        //    repository.Create(orderdetail1);
-        //    var orders = repository.GetAll();
-        //    Assert.IsTrue(orders.Count() > 0);
-        //}
+        [TestMethod]
+        public void OrderDetails_Create()
+        {
+            var repository = new OrderDetailsRepository();
+            //OrderDetails orderdetail = new OrderDetails()
+            //{
+            //    OrderID = 1,
+            //    ProductFormatID = 1,
+            //    Quantity = 10,
+            //    UnitPrice = 470
+            //};
+            //repository.Create(orderdetail);
+            //OrderDetails orderdetail1 = new OrderDetails()
+            //{
+            //    OrderID = 2,
+            //    ProductFormatID = 2,
+            //    Quantity = 5,
+            //    UnitPrice = 470
+            //};
+            //repository.Create(orderdetail1);
+            //OrderDetails orderdetail2 = new OrderDetails()
+            //{
+            //    OrderID = 3,
+            //    ProductFormatID = 1,
+            //    Quantity = 50,
+            //    UnitPrice = 470
+            //};
+            //repository.Create(orderdetail2);
+            var orders = repository.GetAll();
+            Assert.IsTrue(orders.Count() > 0);
+        }
     }
 }
