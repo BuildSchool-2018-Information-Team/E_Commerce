@@ -56,7 +56,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
         {
             SqlConnection connection = new SqlConnection(
                 "data source=.; database=Commerce; integrated security=true");
-            var sql = "UPDATE Orders SET EmployeeID = @EmployeeID, MemberID = @MemberID, ShipName = @ShipName, ShipAddress = @ShipAddress, ShipPhone = @ShipPhone, ShippedDate = @ShippedDate, OrderDate=@OrderDate, ReceiptedDate=@ReceiptedDate, Discount=@Discount, Status = @Status, OrderID=@OrderID ";
+            var sql = "UPDATE Orders SET EmployeeID = @EmployeeID, MemberID = @MemberID, ShipName = @ShipName, ShipAddress = @ShipAddress, ShipPhone = @ShipPhone, ShippedDate = @ShippedDate, OrderDate=@OrderDate, ReceiptedDate=@ReceiptedDate, Discount=@Discount, Status = @Status WHERE OrderID=@OrderID ";
 
             SqlCommand command = new SqlCommand(sql, connection);
 

@@ -33,14 +33,13 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
         {
             SqlConnection connection = new SqlConnection(
                 "data source=.; database=Commerce; integrated security=true");
-            var sql = "UPDATE Employees SET Name=@Name, Phone=@Phone, HireDate=@HireDate WHERE EmployeeID = @EmployeeID";
+            var sql = "UPDATE Employees SET Name=@Name, Phone=@Phone WHERE EmployeeID = @EmployeeID";
 
             SqlCommand command = new SqlCommand(sql, connection);
 
             command.Parameters.AddWithValue("@EmployeeID", model.EmployeeID);
             command.Parameters.AddWithValue("@Name", model.Name);
             command.Parameters.AddWithValue("@Phone", model.Phone);
-            command.Parameters.AddWithValue("@HireDate", model.HireDate);
 
             connection.Open();
             command.ExecuteNonQuery();
