@@ -36,7 +36,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
         {
             SqlConnection connection = new SqlConnection(
                 "data source=.; database=Commerce; integrated security=true");
-            var sql = "UPDATE ProductFormat SET ProductID = @ProductID, Size = @Size, Color = @Color, StockQuantity = @StockQuantity WHERE ProductFormatID = @ProductFormatID";
+            var sql = "UPDATE ProductFormat SET Size = @Size, Color = @Color, StockQuantity = @StockQuantity WHERE ProductFormatID = @ProductFormatID";
 
             SqlCommand command = new SqlCommand(sql, connection);
 
@@ -69,7 +69,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
         public ProductFormat FindById(int ProductFormatID)
         {
             IDbConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
-            var result = connection.Query<ProductFormat>("SELECT * FROM ProductFormat WHERE ProductFormatID = @ProductFormatID", new { @ProductFormatID = ProductFormatID });
+            var result = connection.Query<ProductFormat>("SELECT * FROM ProductFormat WHERE ProductFormatID = @ProductFormatID", new { ProductFormatID });
             ProductFormat productFormat = null;
             foreach(var item in result)
             {
