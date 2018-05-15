@@ -19,8 +19,8 @@ namespace CommerceTest
         public void Test_FindByProductName()
         {
             var repository = new ProductRepository();
-            var product = repository.FindByProductName("abc");
-            Assert.IsTrue(product.Count() == 0);
+            var product = repository.FindByProductName("外套");
+            Assert.IsTrue(product.Count() >= 0);
         }
         [TestMethod]
         public void Test_FindByName()

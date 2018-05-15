@@ -82,7 +82,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
         public IEnumerable<Product> FindByProductName(string ProductName)
         {
             IDbConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
-            return connection.Query<Product>("SELECT * FROM Products WHERE ProductName = @ProductName", new { @ProductName = ProductName });
+            return connection.Query<Product>("FindByProductName", new { @search = ProductName }, commandType: CommandType.StoredProcedure);
         }
         public IEnumerable<Product> GetAll()
         {
