@@ -109,7 +109,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
         public Orders FindById(int OrderID)
         {
             IDbConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
-            var result = connection.Query<Orders>("select * FROM Orders WHERE OrderID = @OrderID", new { @OrderID = OrderID });
+            var result = connection.Query<Orders>("select * FROM Orders WHERE OrderID = @OrderID", new { OrderID });
             Orders order = null;
             foreach(var item in result )
             {
@@ -120,12 +120,12 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
         public IEnumerable<Orders> GetStatus(string Status)
         {
             IDbConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
-            return connection.Query<Orders>("select * FROM Orders WHERE Status = @Status", new { @Status = Status });
+            return connection.Query<Orders>("select * FROM Orders WHERE Status = @Status", new { Status });
         }
         public IEnumerable<Orders> GetOrderDate(string OrderDate)
         {
             IDbConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
-            return connection.Query<Orders>("select * FROM Orders WHERE CONVERT(VARCHAR(25), OrderDate, 126) LIKE @OrderDate", new { @OrderDate = OrderDate });
+            return connection.Query<Orders>("select * FROM Orders WHERE CONVERT(VARCHAR(25), OrderDate, 126) LIKE @OrderDate", new { OrderDate });
         }
         public IEnumerable<Orders> GetAll()
         {

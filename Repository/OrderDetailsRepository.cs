@@ -76,7 +76,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
         public OrderDetails FindById(int OrderID)
         {
             IDbConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
-            var result = connection.Query<OrderDetails>("SELECT * FROM OrderDetails WHERE OrderID = @OrderID", new { @OrderID = OrderID });
+            var result = connection.Query<OrderDetails>("SELECT * FROM OrderDetails WHERE OrderID = @OrderID", new { OrderID });
             OrderDetails orderDetail = null;
             foreach(var item in result)
             {

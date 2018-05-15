@@ -71,7 +71,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
         public Product FindById(int ProductID)
         {
             IDbConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
-            var result = connection.Query<Product>("SELECT * FROM Products WHERE ProductID = @ProductID", new { @ProductID = ProductID });
+            var result = connection.Query<Product>("SELECT * FROM Products WHERE ProductID = @ProductID", new { ProductID });
             Product product = null;
             foreach (var item in result)
             {
@@ -82,7 +82,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
         public IEnumerable<Product> FindByProductName(string ProductName)
         {
             IDbConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
-            return connection.Query<Product>("SELECT * FROM Products WHERE ProductName = @ProductName", new { @ProductName = ProductName });
+            return connection.Query<Product>("SELECT * FROM Products WHERE ProductName = @ProductName", new { ProductName });
         }
         public IEnumerable<Product> GetAll()
         {

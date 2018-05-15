@@ -63,7 +63,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
         public Category FindById(int CategoryID)
         {
             IDbConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
-            var result = connection.Query<Category>("SELECT * FROM Category WHERE CategoryID = @CategoryID", new { CategoryID = CategoryID });
+            var result = connection.Query<Category>("SELECT * FROM Category WHERE CategoryID = @CategoryID", new { CategoryID });
             Category category = null;
             foreach (var item in result)
             {

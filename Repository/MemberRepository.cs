@@ -73,7 +73,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
             IDbConnection connection = new SqlConnection(
                 "data source=.; database=Commerce; integrated security=true");
 
-            var result = connection.Query<Members>("SELECT * FROM Members WHERE MemberID = @MemberID", new { @MemberID = MemberID });
+            var result = connection.Query<Members>("SELECT * FROM Members WHERE MemberID = @MemberID", new { MemberID });
             Members member = null;
             foreach (var item in result)
             {
