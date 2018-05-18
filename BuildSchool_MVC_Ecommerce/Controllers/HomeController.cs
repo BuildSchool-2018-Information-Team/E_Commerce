@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BuildSchool.MvcSolution.OnlineStore.Models;
+using BuildSchool.MvcSolution.OnlineStore.Repository;
 
 namespace BuildSchool_MVC_Ecommerce.Controllers
 {
@@ -10,6 +12,21 @@ namespace BuildSchool_MVC_Ecommerce.Controllers
     {
         public ActionResult Index()
         {
+            HttpCookie user = null;
+            var categoryrepository = new CategoryRepository();
+            var allcategory = categoryrepository.GetAll();
+            var productrepository = new ProductRepository();
+            var productnew = categoryrepository.GetAll();
+            // user = new HttpCookie("BuildSchoolMVCUserTest");
+            
+            user = Request.Cookies["BuildSchoolMVCUser"];
+            if (user.Values["user"] == null)
+            {
+                
+            }
+
+            
+
             return View();
         }
 

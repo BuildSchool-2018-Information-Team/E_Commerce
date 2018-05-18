@@ -87,7 +87,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
         public IEnumerable<Product> GetAll()
         {
             IDbConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
-            return connection.Query<Product>("SELECT * FROM Products ");
+            return connection.Query<Product>("SELECT * FROM Products ORDER BY ProductID");
         }
     }
 }
