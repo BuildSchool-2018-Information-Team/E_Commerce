@@ -1,0 +1,175 @@
+﻿
+<div class="row mt-1" style="background-color: lightgray">
+    <div class="col-sm-12">
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img class="d-block w-100" src="http://s2.fafa01.com/uploads/06/2/310228/14973227133525.jpg" alt="First slide">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Pariatur</h5>
+                        <p>Pariatur cupidatat exercitation eiusmod.</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="https://images.milled.com/2014-08-18/0-F_b1rU2Ou6SkGm/UoHrW48sFq2P.jpg" alt="Second slide">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Pariatur</h5>
+                        <p>Pariatur cupidatat exercitation eiusmod.</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="https://9to5mac.files.wordpress.com/2018/04/uniqlo-jw-anderson-collaoration.jpg?quality=82&strip=all&w=1000&resize=850%2C425"
+                         alt="Third slide">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Pariatur</h5>
+                        <p>Pariatur cupidatat exercitation eiusmod.</p>
+                    </div>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+</div>
+    <!-- (col-9)Row of the newest Product Info -->
+    <div class="row mt-3">
+        <div class="col">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-secondary active">
+                    <input type="radio" name="options" id="option1" autocomplete="off" checked> 最新上市
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="option2" autocomplete="off"> 熱銷產品
+
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="option3" autocomplete="off"> 價格(低到高)
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        @foreach (var item in @ViewData["productcategory"] as IEnumerable<FindProductsByCategory>)
+        {
+            <div class="col-sm-4 mt-4 mr-2">
+                <a href="#">
+                    <img class="product" name=@item.ProductID src=@item.ProductImage alt="Card image cap">
+                </a>
+                <div>
+                    <h5 class="mt-2 product" name=@item.ProductID>@item.ProductName</h5>
+                    @*<p>test1</p>*@
+                    <p class="text-right" style="color:darkred">$@item.UnitPrice.ToString("#0.00")</p>
+                </div>
+            </div>
+        }
+        @*<div>
+                <a href="#">
+                    <img src="http://www.niusnews.com/upload/posts/po3_23028_1405580759.jpg" alt="Card image cap">
+                </a>
+                <div>
+                    <h5 class="mt-2">女款外套</h5>
+                    <p>短版修身外套 二色</p>
+                    <p class="text-right" style="color:darkred">$2800</p>
+                </div>
+            </div>
+            <div>
+                <a href="#">
+                    <img src="http://www.niusnews.com/upload/posts/po3_23028_1405580759.jpg" alt="Card image cap">
+                </a>
+                <div>
+                    <h5 class="mt-2">女款外套</h5>
+                    <p>短版修身外套 二色</p>
+                    <p class="text-right" style="color:darkred">$2800</p>
+                </div>
+            </div>
+            <div>
+                <a href="#">
+                    <img src="http://www.niusnews.com/upload/posts/po3_23028_1405580759.jpg" alt="Card image cap">
+                </a>
+                <div>
+                    <h5 class="mt-2">女款外套</h5>
+                    <p>短版修身外套 二色</p>
+                    <p class="text-right" style="color:darkred">$2800</p>
+                </div>
+            </div>
+            <div>
+                <a href="#">
+                    <img src="http://www.niusnews.com/upload/posts/po3_23028_1405580759.jpg" alt="Card image cap">
+                </a>
+                <div>
+                    <h5 class="mt-2">女款外套</h5>
+                    <p>短版修身外套 二色</p>
+                    <p class="text-right" style="color:darkred">$2800</p>
+                </div>
+            </div>
+            <div>
+                <a href="#">
+                    <img src="http://www.niusnews.com/upload/posts/po3_23028_1405580759.jpg" alt="Card image cap">
+                </a>
+                <div>
+                    <h5 class="mt-2">女款外套</h5>
+                    <p>短版修身外套 二色</p>
+                    <p class="text-right" style="color:darkred">$2800</p>
+                </div>
+            </div>
+            <div>
+                <a href="#">
+                    <img src="http://www.niusnews.com/upload/posts/po3_23028_1405580759.jpg" alt="Card image cap">
+                </a>
+                <div>
+                    <h5 class="mt-2">女款外套</h5>
+                    <p>短版修身外套 二色</p>
+                    <p class="text-right" style="color:darkred">$2800</p>
+                </div>
+            </div>
+            <div>
+                <a href="#">
+                    <img src="http://www.niusnews.com/upload/posts/po3_23028_1405580759.jpg" alt="Card image cap">
+                </a>
+                <div>
+                    <h5 class="mt-2">女款外套</h5>
+                    <p>短版修身外套 二色</p>
+                    <p class="text-right" style="color:darkred">$2800</p>
+                </div>
+            </div>
+            <div>
+                <a href="#">
+                    <img src="http://www.niusnews.com/upload/posts/po3_23028_1405580759.jpg" alt="Card image cap">
+                </a>
+                <div>
+                    <h5 class="mt-2">女款外套</h5>
+                    <p>短版修身外套 二色</p>
+                    <p class="text-right" style="color:darkred">$2800</p>
+                </div>
+            </div>*@
+    </div>
+    @*<nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>*@

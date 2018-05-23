@@ -71,7 +71,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
             IDbConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
             var result = connection.Query<ProductFormat>("SELECT * FROM ProductFormat WHERE ProductFormatID = @ProductFormatID", new { ProductFormatID });
             ProductFormat productFormat = null;
-            foreach(var item in result)
+            foreach (var item in result)
             {
                 productFormat = item;
             }

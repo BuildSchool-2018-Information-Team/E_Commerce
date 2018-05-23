@@ -6,7 +6,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{B956BC76-6FCA-4C98-88FC-58AEEC72D2E7}</ProjectGuid>
+    <ProjectGuid>{EF9A6210-1BC3-43E4-A48E-44AC3D3B07BA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BuildSchool_MVC_Ecommerce.Tests</RootNamespace>
@@ -100,7 +100,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BuildSchool_MVC_Ecommerce\BuildSchool_MVC_Ecommerce.csproj">
-      <Project>{66395F30-C315-4210-A604-7D7A6B868608}</Project>
+      <Project>{D035BA2D-3E79-46C1-91CC-8DC09D65836C}</Project>
       <Name>BuildSchool_MVC_Ecommerce</Name>
     </ProjectReference>
   </ItemGroup>

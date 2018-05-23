@@ -75,11 +75,12 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
 
             var result = connection.Query<Members>("SELECT * FROM Members WHERE MemberID = @MemberID", new { MemberID });
             Members member = null;
-            foreach (var item in result)
+            foreach(var item in result)
             {
                 member = item;
             }
             return member;
+
 
             //SqlConnection connection = new SqlConnection(
             //    "data source=.; database=Commerce; integrated security=true");
@@ -98,21 +99,31 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
             //while (reader.Read())
             //{
             //    member = new Members();
-            //    member = DbReaderModelBinder<Members>.Bind(reader);
+            //    member =  DbReaderModelBinder<Members>.Bind(reader);
             //}
 
             //reader.Close();
 
             //return member;
         }
-
+        public IEnumerable<GetBuyerOrder> GetBuyerOrder(string memberid)
+        {
+            SqlConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
+            return connection.Query<GetBuyerOrder>("GetBuyerOrder", new { memberid }, commandType: CommandType.StoredProcedure);
+        }
         public IEnumerable<Members> GetAll()
         {
             IDbConnection connection = new SqlConnection(
                 "data source=.; database=Commerce; integrated security=true");
 
-            return connection.Query<Members>("SELECT * FROM Members");
-           
+            var result = connection.Query<Members>("SELECT * FROM Members");
+            var members = new List<Members>();
+            foreach(var item in result)
+            {
+                members.Add(item);
+            }
+            return members;
+
             //SqlConnection connection = new SqlConnection(
             //    "data source=.; database=Commerce; integrated security=true");
             //var sql = "SELECT * FROM Members";

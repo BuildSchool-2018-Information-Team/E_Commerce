@@ -100,7 +100,12 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
         public IEnumerable<Category> GetAll()
         {
             IDbConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
-            return  connection.Query<Category>("SELECT * FROM Category");
+            return connection.Query<Category>("SELECT * FROM Category");
+        }
+        public IEnumerable<FindProductsByCategory> FindProductsByCategory()
+        {
+            IDbConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
+            return connection.Query<FindProductsByCategory>("FindProductsByCategory", new { }, commandType: CommandType.StoredProcedure);
         }
     }
 }

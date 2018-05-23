@@ -99,42 +99,42 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
 
             //return employee;
         }
-        public Employees FindByName(string Name)
+
+        public IEnumerable<Employees> GetAll()
         {
             IDbConnection connection = new SqlConnection(
                 "data source=.; database=Commerce; integrated security=true");
 
-            var result = connection.Query<Employees>("SELECT * FROM Employees WHERE Name = @Name", new { Name });
-            Employees employee = null;
+            var result = connection.Query<Employees>("SELECT * FROM employees");
+            var employees = new List<Employees>();
             foreach (var item in result)
             {
-                employee = item;
+                employees.Add(item);
             }
-            return employee;
+            return employees;
 
             //SqlConnection connection = new SqlConnection(
             //    "data source=.; database=Commerce; integrated security=true");
-            //var sql = "SELECT * FROM Employees WHERE Name = @Name";
+            //var sql = "SELECT * FROM employees";
 
             //SqlCommand command = new SqlCommand(sql, connection);
-
-            //command.Parameters.AddWithValue("@Name", Name);
-
             //connection.Open();
 
             //var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
             //var properties = typeof(Employees).GetProperties();
-            //Employees employee = null;
+            //var employees = new List<Employees>();
 
             //while (reader.Read())
             //{
-            //    employee = new Employees();
+            //    var employee = new Employees();
             //    employee = DbReaderModelBinder<Employees>.Bind(reader);
+            //    employees.Add(employee);
             //}
 
             //reader.Close();
 
-            //return employee;
+            //return employees;
+
         }
 
         public IEnumerable<Employees> FindByHireYear(int startYear, int endYear)
@@ -142,8 +142,14 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
             IDbConnection connection = new SqlConnection(
                 "data source=.; database=Commerce; integrated security=true");
 
-            return connection.Query<Employees>("SELECT * FROM Employees WHERE YEAR(HireDate) BETWEEN @startYear AND @endYear ORDER BY HireDate DESC", new { startYear, endYear });
-            
+            var result = connection.Query<Employees>("SELECT * FROM Employees WHERE YEAR(HireDate) BETWEEN @startYear AND @endYear ORDER BY HireDate DESC", new { startYear, endYear });
+            var employees = new List<Employees>();
+            foreach (var item in result)
+            {
+                employees.Add(item);
+            }
+            return employees;
+
             //SqlConnection connection = new SqlConnection(
             //    "data source=.; database=Commerce; integrated security=true");
             //var sql = "SELECT * FROM Employees WHERE YEAR(HireDate) BETWEEN @startYear AND @endYear ORDER BY HireDate DESC";
@@ -169,35 +175,48 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
 
             //return employees;
         }
-
-        public IEnumerable<Employees> GetAll()
+        public IEnumerable<GetHowLongHireDate> GetHowLongHireDate()
+        {
+            SqlConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
+            return connection.Query<GetHowLongHireDate>("GetHowLongHireDate", new { }, commandType: CommandType.StoredProcedure);
+        }
+        public Employees FindByName(string Name)
         {
             IDbConnection connection = new SqlConnection(
                 "data source=.; database=Commerce; integrated security=true");
 
-            return connection.Query<Employees>("SELECT * FROM employees");
+            var result = connection.Query<Employees>("SELECT * FROM Employees WHERE Name = @Name", new { Name });
+            Employees employee = null;
+            foreach (var item in result)
+            {
+                employee = item;
+            }
+            return employee;
+
 
             //SqlConnection connection = new SqlConnection(
             //    "data source=.; database=Commerce; integrated security=true");
-            //var sql = "SELECT * FROM employees";
+            //var sql = "SELECT * FROM Employees WHERE Name = @Name";
 
             //SqlCommand command = new SqlCommand(sql, connection);
+
+            //command.Parameters.AddWithValue("@Name", Name);
+
             //connection.Open();
 
             //var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
-            //var employees = new List<Employees>();
+            //var properties = typeof(Employees).GetProperties();
+            //Employees employee = null;
 
             //while (reader.Read())
             //{
-            //    var employee = new Employees();
+            //    employee = new Employees();
             //    employee = DbReaderModelBinder<Employees>.Bind(reader);
-            //    employees.Add(employee);
             //}
 
             //reader.Close();
 
-            //return employees;
-
+            //return employee;
         }
     }
 }

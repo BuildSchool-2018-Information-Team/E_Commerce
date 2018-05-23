@@ -56,7 +56,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
         {
             SqlConnection connection = new SqlConnection(
                 "data source=.; database=Commerce; integrated security=true");
-            var sql = "UPDATE Orders SET EmployeeID = @EmployeeID, MemberID = @MemberID, ShipName = @ShipName, ShipAddress = @ShipAddress, ShipPhone = @ShipPhone, ShippedDate = @ShippedDate, OrderDate=@OrderDate, ReceiptedDate=@ReceiptedDate, Discount=@Discount, Status = @Status WHERE OrderID=@OrderID ";
+            var sql = "UPDATE Orders SET EmployeeID = @EmployeeID, MemberID = @MemberID, ShipName = @ShipName, ShipAddress = @ShipAddress, ShipPhone = @ShipPhone, ShippedDate = @ShippedDate, OrderDate=@OrderDate, ReceiptedDate=@ReceiptedDate, Discount=@Discount, Status = @Status WHERE OrderID = @OrderID ";
 
             SqlCommand command = new SqlCommand(sql, connection);
 
@@ -111,7 +111,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
             IDbConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
             var result = connection.Query<Orders>("select * FROM Orders WHERE OrderID = @OrderID", new { OrderID });
             Orders order = null;
-            foreach(var item in result )
+            foreach (var item in result)
             {
                 order = item;
             }
@@ -121,6 +121,11 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
         {
             IDbConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
             return connection.Query<Orders>("select * FROM Orders WHERE Status = @Status", new { Status });
+        }
+        public IEnumerable<FindOrderdetaiByOrderID> FindOrderdetaiByOrderID(int orderid)
+        {
+            IDbConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
+            return connection.Query<FindOrderdetaiByOrderID>("FindOrderdetaiByOrderID", new {  orderid}, commandType: CommandType.StoredProcedure);
         }
         public IEnumerable<Orders> GetOrderDate(string OrderDate)
         {

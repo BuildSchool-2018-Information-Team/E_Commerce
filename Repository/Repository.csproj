@@ -44,9 +44,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CategoryRepository.cs" />
+    <Compile Include="OrderDetailsRepository.cs" />
     <Compile Include="EmployeesRepository.cs" />
     <Compile Include="MemberRepository.cs" />
-    <Compile Include="OrderDetailsRepository.cs" />
     <Compile Include="OrdersRepository.cs" />
     <Compile Include="ProductFormatRepository.cs" />
     <Compile Include="ProductRepository.cs" />
@@ -54,11 +54,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj">
-      <Project>{78b78475-64e9-47e2-b586-3b7c9718b176}</Project>
+      <Project>{522B70B1-BA21-4FE0-990C-31D5780A86A3}</Project>
       <Name>Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\Utils\Utils.csproj">
-      <Project>{31722E49-E51F-4EDD-8B87-50C9CA27DAE7}</Project>
+      <Project>{4EF2F1D1-049B-42A9-91C5-9F52FE9708B9}</Project>
       <Name>Utils</Name>
     </ProjectReference>
   </ItemGroup>

@@ -1,0 +1,90 @@
+﻿
+<div class="row">
+    <div class="col-sm-4 mt-5">
+        <img src=@ViewData["productimage"] class="img-thumbnail">
+    </div>
+    <div class="col-sm-8">
+        <ul class="list-group list-group-flush" style="border-top:0 none;">
+            <li class="list-group-item" style="border-top:0 none;">
+                <h2 class="mt-3">@ViewData["productname"]</h2>
+                <br>
+                <div class="row">
+                    <div class="col-sm-2 mt-2">直購價</div>
+                    <div class="col-sm-10">
+                        <h3 style="color: red; font-weight:bold">$@ViewData["productprice"]</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 mt-2">數量</div>
+                    <div class="col-sm-10 mt-2">
+                        <button id="min" type="button" title="減少" class="item-qty-button item-qty-button-minus">-</button>
+                        <input id="count" type="text" class="item-qty-input" value="1" style="width: 60px;">
+                        <button id="add" type="button" title="增加" class="item-qty-button item-qty-button-plus">+</button>
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item" style="border-top:0 none;">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label>顏色選擇:</label>
+                        <select class="form-control" id="Product-Color">
+                            @if(ViewData["productcolor"] == null)
+                            {
+                                <option></option>
+                            }
+                            else
+                            {
+                                foreach (var item in ViewData["productcolor"] as IEnumerable<string>)
+                                {
+                                    <option>@item</option>
+                                }
+                            }
+                            
+                            @*<option>深藍</option>
+                                <option>淺灰</option>
+                                <option>紅</option>
+                                <option>黑</option>*@
+                        </select>
+                    </div>
+                    <div class="col-sm-6">
+                        <label>尺寸選擇:</label>
+                        <select class="form-control" id="Product-Size">
+                            @if(ViewData["productsize"] == null)
+                            {
+
+                            }
+                            else
+                            {
+                                foreach (var item in ViewData["productsize"] as IEnumerable<string>)
+                                {
+                                    <option>@item</option>
+                                }
+                            }
+                            @*<option>2L</option>
+                                <option>3L</option>
+                                <option>M</option>
+                                <option>L</option>
+                                <option>XL</option>*@
+                        </select>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-sm-6">
+                        <label class="quantry">剩餘數量 : </label>
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item" style="border-top:0 none;">
+                <div class="row mt-4">
+                    <div class="col-sm-4 ml-4"></div>
+                    <div class="col-sm-4">
+                        <a class="btn btn-secondary btn-lg active ml-6" href="#"> 加入購物車 </a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div id="p" hidden >
+    @ViewData["product"]
+</div>

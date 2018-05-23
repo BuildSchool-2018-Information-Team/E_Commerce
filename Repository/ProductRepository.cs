@@ -71,7 +71,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
         public Product FindById(int ProductID)
         {
             IDbConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
-            var result = connection.Query<Product>("SELECT * FROM Products WHERE ProductID = @ProductID", new { @ProductID = ProductID });
+            var result = connection.Query<Product>("SELECT * FROM Products WHERE ProductID = @ProductID", new { ProductID });
             Product product = null;
             foreach (var item in result)
             {
@@ -79,15 +79,49 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
             }
             return product;
         }
+        public IEnumerable<GetProductOrder> GetHotProduct()
+        {
+            SqlConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
+            var affectedRows = connection.Query<GetProductOrder>("GetProductOrder", new {  },commandType: CommandType.StoredProcedure);
+            //SqlCommand cmd = new SqlCommand();
+            //cmd.Connection = connection;
+            //cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            //cmd.CommandText = "GetProductOrder";
+            ////add any parameters the stored procedure might require
+            //connection.Open();
+            //var o = cmd.ExecuteNonQuery;
+            //connection.Close();
+            //return o;
+            //SqlConnection cnn = new SqlConnection(cnnString);
+            //SqlCommand cmd = new SqlCommand();
+            //cmd.Connection = cnn;
+            //cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            //cmd.CommandText = "ProcedureName";
+            //add any parameters the stored procedure might require
+            //cnn.Open();
+            //object o = cmd.ExecuteScalar();
+            //cnn.Close();
+            return affectedRows;
+        }
+        public IEnumerable<Product> FindProductByUnitPrice(decimal lower, decimal upper)
+        {
+            SqlConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
+            return connection.Query<Product>("FindProductByUnitPrice", new { lower, upper}, commandType: CommandType.StoredProcedure);
+        }
+        public IEnumerable<FindProductFormatByProductID> FindProductFormatByProductID(int productid)
+        {
+            SqlConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
+            return connection.Query<FindProductFormatByProductID>("FindProductFormatByProductID", new { productid }, commandType: CommandType.StoredProcedure);
+        }
         public IEnumerable<Product> FindByProductName(string ProductName)
         {
             IDbConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
-            return connection.Query<Product>("FindByProductName", new { @search = ProductName }, commandType: CommandType.StoredProcedure);
+            return connection.Query<Product>("SELECT * FROM Products WHERE ProductName LIKE @ProductName", new { ProductName });
         }
         public IEnumerable<Product> GetAll()
         {
             IDbConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
-            return connection.Query<Product>("SELECT * FROM Products ORDER BY ProductID");
+            return connection.Query<Product>("SELECT * FROM Products ORDER BY ProductID DESC ");
         }
     }
 }

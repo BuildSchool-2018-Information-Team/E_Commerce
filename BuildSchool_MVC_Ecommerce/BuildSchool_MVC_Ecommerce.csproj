@@ -9,7 +9,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{66395F30-C315-4210-A604-7D7A6B868608}</ProjectGuid>
+    <ProjectGuid>{D035BA2D-3E79-46C1-91CC-8DC09D65836C}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -143,6 +143,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MemberController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -178,13 +179,24 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\NotLogInBar.cshtml" />
+    <Content Include="Views\Home\HomePage.cshtml" />
+    <Content Include="Views\Home\LogInBar.cshtml" />
+    <Content Include="Views\Home\CategoryPage.cshtml" />
+    <Content Include="Views\Member\SignUp.cshtml" />
+    <Content Include="Views\Member\Index.cshtml" />
+    <Content Include="Views\Member\SignUpError.cshtml" />
+    <Content Include="Views\Home\ProductPage.cshtml" />
+    <Content Include="Views\Home\Quantity.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -205,11 +217,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CommerceTest\CommerceTest.csproj">
-      <Project>{9204bbf9-8685-4fad-902d-4ceb1a5b5d6c}</Project>
+      <Project>{931dfbf2-cc94-4155-9997-9e8ffbc1394a}</Project>
       <Name>CommerceTest</Name>
     </ProjectReference>
     <ProjectReference Include="..\Models\Models.csproj">
-      <Project>{78b78475-64e9-47e2-b586-3b7c9718b176}</Project>
+      <Project>{522b70b1-ba21-4fe0-990c-31d5780a86a3}</Project>
       <Name>Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\Repository\Repository.csproj">
@@ -217,7 +229,7 @@
       <Name>Repository</Name>
     </ProjectReference>
     <ProjectReference Include="..\Utils\Utils.csproj">
-      <Project>{31722e49-e51f-4edd-8b87-50c9ca27dae7}</Project>
+      <Project>{4ef2f1d1-049b-42a9-91c5-9f52fe9708b9}</Project>
       <Name>Utils</Name>
     </ProjectReference>
   </ItemGroup>
@@ -237,9 +249,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>59591</DevelopmentServerPort>
+          <DevelopmentServerPort>54072</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:59591/</IISUrl>
+          <IISUrl>http://localhost:54072/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
