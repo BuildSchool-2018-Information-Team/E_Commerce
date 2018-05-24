@@ -1,0 +1,277 @@
+﻿
+@{
+    ViewBag.Title = "Shopping4";
+}
+
+<div class="container-fluid">
+    <!-- Title Row(Logo? & Navbar) 網頁的Header-->
+    <div class="row" style="background-color:#3F4739">
+        <div class="col-sm-12">
+            <nav class="navbar navbar-expand-sm navbar-light">
+                <a class="navbar-brand font-weight-bold text-white" href="#">阿畦服飾</a>
+                <button class="navbar-toggler hidden-lg-up" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="collapsibleNavId">
+                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                        <li class="nav-item active">
+                            <a class="nav-link ml-5 mr-3 text-white" href="/Home/Index">
+                                首頁
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown ml-3 mr-5">
+                            <a class="nav-link dropdown-toggle text-white" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">優惠活動</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownId">
+                                <a class="dropdown-item" href="#">優惠活動 1</a>
+                                <a class="dropdown-item" href="#">優惠活動 2</a>
+                            </div>
+                        </li>
+                    </ul>
+                    <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="text" placeholder="產品搜尋">
+                        <button class="btn btn-outline-warning my-2 my-sm-0 text-white" type="submit">搜尋</button>
+                    </form>
+                    <ul class="navbar-nav mr-auto ml-5 mt-2 mt-lg-0">
+                        <li class="nav-item ml-5">
+                            <a id="car" class="nav-link text-white" href="/Shopping/Index"> 購物車 </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white ml-5" href="#"> </a>
+                        </li>
+                        <!-- 已登入：會員專區 -->
+                        <li class="nav-item dropdown ml-3 mr-5">
+                            <a class="nav-link dropdown-toggle text-white" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@ViewData["user"]</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownId">
+                                <a class="dropdown-item" href="#">查詢訂單內容</a>
+                                <a class="dropdown-item" href="#">查詢/修改會員</a>
+                                @Html.ActionLink("登出", "LogOut", "Home", new { @class = "dropdown-item" })
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-9">
+            <div class="row mt-4">
+                <div class="col-3">
+                    <h4>1.確認購物車</h4>
+                </div>
+                <div class="col-3">
+                    <h4>2.運送、付款資料確認</h4>
+                </div>
+                <div class="col-3">
+                    <h4>
+                        3.確認訂單資料
+                        <i class="fas fa-arrow-alt-circle-right"></i>
+                    </h4>
+                </div>
+                <div class="col-2">
+                    <h4>4.完成訂單</h4>
+                </div>
+            </div>
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">75%</div>
+            </div>
+            <div class="col">
+                <ul class="list-group mt-4">
+                    <li class="list-group-item active">請確認訂單內容</li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-3">
+                                商品圖片
+                            </div>
+                            <div class="col-4">
+                                商品名稱
+                            </div>
+                            <div class="col-2">
+                                數量
+                            </div>
+                            <div class="col-2">
+                                價錢
+                            </div>
+                        </div>
+                    </li>
+                    @if (@ViewData["shopping"] as List<Shopping> == null)
+                    {
+
+                    }
+                    else
+                    {
+                        foreach (var item in @ViewData["shopping"] as List<Shopping>)
+                        {
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <img src=@item.ProductImage>
+                                    </div>
+                                    <div class="col-4">
+                                        @item.ProductName (@item.Color) (@item.Size)
+                                    </div>
+                                    <div class="col-2">
+                                        <label>@item.Quantity</label>
+                                    </div>
+                                    <div class="col-2 price">
+                                        $@item.UnitPrice.ToString("#0.00")
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    }
+                    @*<li class="list-group-item">
+                            <div class="row">
+                                <div class="col-3">
+                                    <img src="http://im.uniqlo.com/images/tw/uq/pc/goods/410915/item/69_410915_middles.jpg">
+                                </div>
+                                <div class="col-4">
+                                    男裝 JUMP 50th 印花T恤 (短袖)
+                                </div>
+                                <div class="col-2">
+                                    <label>1</label>
+                                </div>
+                                <div class="col-2">
+                                    NT$390
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-3">
+                                    <img src="http://im.uniqlo.com/images/tw/uq/pc/goods/410905001/item/03_410905001_middles.jpg">
+                                </div>
+                                <div class="col-4">
+                                    JUMP(50th) 印花T恤 (NARUTO.短袖)
+                                </div>
+                                <div class="col-2">
+                                    <label>1</label>
+                                </div>
+                                <div class="col-2">
+                                    NT$390
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-3">
+                                    <img src="http://im.uniqlo.com/images/tw/uq/pc/goods/400133/item/69_400133_middles.jpg">
+                                </div>
+                                <div class="col-4">
+                                    男裝 彈性SKINNY FIT 多色牛仔褲
+                                </div>
+                                <div class="col-2">
+                                    <label>1</label>
+                                </div>
+                                <div class="col-2">
+                                    NT$990
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-3">
+                                    <img src="http://im.uniqlo.com/images/tw/uq/pc/goods/407592/item/09_407592_middles.jpg">
+                                </div>
+                                <div class="col-4">
+                                    男裝 U 低筒休閒鞋
+                                </div>
+                                <div class="col-2">
+                                    <label>1</label>
+                                </div>
+                                <div class="col-2">
+                                    NT$790
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-8">
+                                </div>
+                                <div class="col-4">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">
+                                            總計:
+                                            <label>2560</label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>*@
+                </ul>
+            </div>
+            <div class="col">
+                <ul class="list-group mt-4">
+                    <li class="list-group-item active">請確認取貨人資料</li>
+                    <li class="list-group-item">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">取貨人姓名:</label>
+                            <label>@ViewData["shipname"]</label>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="form-group col-md-6">
+                            <label for="inputPassword4">聯絡人電話:</label>
+                            <label>@ViewData["shipphone"]</label>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="form-group col-md-10">
+                            <label for="inputAddress">Address:</label>
+                            <label>@ViewData["shipaddress"]</label>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="form-group col-md-6">
+                            <label class="mr-sm-2" for="inlineFormCustomSelect">付款方式</label>
+                            <label>
+                                @ViewData["shippay"]
+                            </label>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="row">
+                <div class="col-8">
+
+                </div>
+                @using (Html.BeginForm("Shopping5", "Shopping"))
+                { 
+                <div class="col-4">
+                    <button type="submit" class="btn btn-dark align-middle" href="#">下一步</button>
+                </div>
+                }
+            </div>
+        </div>
+        <!-- Ads (廣告) -->
+        <div class="col mt-2">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <div class="card" style="width: 12rem;">
+                        <img class="card-img-top" src="http://im.uniqlo.com/images/tw/uq/pc/goods/404199/item/17_404199_middles.jpg" alt="Card image cap">
+                        <div class="card-body">
+                            <a href="#">BLOCKTECH 大衣</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="card" style="width: 12rem;">
+                        <img class="card-img-top" src="http://im.uniqlo.com/images/tw/uq/pc/goods/407768/item/01_407768_middles.jpg" alt="Card image cap">
+                        <div class="card-body">
+                            <a href="#">亞麻混紡 蕾絲開襟外套 </a>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="card" style="width: 12rem;">
+                        <img class="card-img-top" src="http://im.uniqlo.com/images/tw/uq/pc/goods/40519400001/item/32_40519400001_middles.jpg" alt="Card image cap">
+                        <div class="card-body">
+                            <a href="#">KANDO外套 </a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -13,10 +13,10 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
 {
     public class OrdersRepository
     {
-        public void Create(Orders model)
+        public void Create(Orders model, SqlConnection connection, IDbTransaction transaction)
         {
-            SqlConnection connection = new SqlConnection(
-                "data source=.; database=Commerce; integrated security=true");
+            //SqlConnection connection = new SqlConnection(
+            //    "data source=.; database=Commerce; integrated security=true");
             var sql = "INSERT INTO Orders VALUES ( @EmployeeID, @MemberID, @ShipName, @ShipAddress, @ShipPhone, @ShippedDate, @OrderDate, @ReceiptedDate, @Discount, @Status)";
 
             SqlCommand command = new SqlCommand(sql, connection);

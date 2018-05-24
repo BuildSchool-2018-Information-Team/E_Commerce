@@ -144,6 +144,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MemberController.cs" />
+    <Compile Include="Controllers\ShoppingController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -197,6 +198,14 @@
     <Content Include="Views\Member\SignUpError.cshtml" />
     <Content Include="Views\Home\ProductPage.cshtml" />
     <Content Include="Views\Home\Quantity.cshtml" />
+    <Content Include="Views\Shopping\PutInCookie.cshtml" />
+    <Content Include="Views\Shopping\Index.cshtml" />
+    <Content Include="Views\Shopping\NoProductQuantity.cshtml" />
+    <Content Include="Views\Shopping\Shopping2.cshtml" />
+    <Content Include="Views\Shopping\Shopping3.cshtml" />
+    <Content Include="Views\Shopping\Shopping4.cshtml" />
+    <Content Include="Views\Shopping\Shopping5.cshtml" />
+    <Content Include="Views\Shopping\Shopping6.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

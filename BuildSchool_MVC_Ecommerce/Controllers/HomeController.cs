@@ -24,7 +24,7 @@ namespace BuildSchool_MVC_Ecommerce.Controllers
             }
             else
             {
-                string json = Request.Cookies["user"].Value;
+                string json = HttpUtility.UrlDecode(Request.Cookies["user"].Value);
                 var user = JSONSerializer.Deserialize<User>(json);
                 ViewData["user"] = user.Username;
             }
@@ -56,9 +56,9 @@ namespace BuildSchool_MVC_Ecommerce.Controllers
                         Username = member.Name
                     };
                     string json = JSONSerializer.Serialize(user);
-                    var hc = new HttpCookie(cookieName, json)
+                    var hc = new HttpCookie(cookieName, HttpUtility.UrlEncode(json))
                     {
-                        Expires = DateTime.Now.AddSeconds(20),
+                        Expires = DateTime.Now.AddMinutes(20),
                         HttpOnly = true
                     };
                     Response.Cookies.Add(hc);
@@ -99,6 +99,7 @@ namespace BuildSchool_MVC_Ecommerce.Controllers
             List<string> productsize = new List<string>();
             foreach (var item in product)
             {
+                ViewData["productid"] = item.ProductID;
                 ViewData["productname"] = item.ProductName;
                 ViewData["productprice"] = item.UnitPrice.ToString("#0.00");
                 ViewData["Description"] = item.Description;
@@ -126,6 +127,7 @@ namespace BuildSchool_MVC_Ecommerce.Controllers
             }
             return PartialView();
         }
+        
         public ActionResult NotLogInBar()
         {
             //var co = new HttpCookie("User", "123")
@@ -152,6 +154,26 @@ namespace BuildSchool_MVC_Ecommerce.Controllers
             //    HttpOnly = true
             //};
             Response.Cookies.Add(cookie);
+            if(Request.Cookies["shoppingcar"] == null)
+            {
+
+            }else
+            {
+                var cookie1 = Request.Cookies["shoppingcar"];
+                cookie1.Expires = DateTime.Now;
+                Response.Cookies.Add(cookie1);
+            }
+            if(Request.Cookies["ShipData"] == null)
+            {
+
+            }
+            else
+            {
+                var cookie2 = Request.Cookies["ShipData"];
+                cookie2.Expires = DateTime.Now;
+                Response.Cookies.Add(cookie2);
+            }
+            
             return RedirectToAction("Index");
         }
         public ActionResult Contact()

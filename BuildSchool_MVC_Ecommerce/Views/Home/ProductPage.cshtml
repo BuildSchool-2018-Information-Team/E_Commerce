@@ -70,7 +70,7 @@
                 </div>
                 <div class="row mt-4">
                     <div class="col-sm-6">
-                        <label class="quantry">剩餘數量 : </label>
+                        <label class="quantry">剩餘數量 : 0</label>
                     </div>
                 </div>
             </li>
@@ -78,7 +78,7 @@
                 <div class="row mt-4">
                     <div class="col-sm-4 ml-4"></div>
                     <div class="col-sm-4">
-                        <a class="btn btn-secondary btn-lg active ml-6" href="#"> 加入購物車 </a>
+                        <a id="shopping" class="btn btn-secondary btn-lg active ml-6" href="#"> 加入購物車 </a>
                     </div>
                 </div>
             </li>
@@ -88,3 +88,23 @@
 <div id="p" hidden >
     @ViewData["product"]
 </div>
+<div id="pid" hidden>
+    @ViewData["productid"]
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    $(function () {
+        $(".quantry").text("");
+        $.ajax({
+            url: "/Home/Quantity",
+            data: {
+                color: $("#Product-Color").val(),
+                size: $("#Product-Size").val(),
+                productjson: $("#p").text(),
+            },
+            success: function (result) {
+                $(".quantry").html(result);
+            }
+        });
+    })
+</script>

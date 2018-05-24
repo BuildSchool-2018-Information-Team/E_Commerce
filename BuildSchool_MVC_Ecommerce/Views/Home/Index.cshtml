@@ -5,10 +5,14 @@
 @if (ViewData["user"] as string == null)
 {
     Html.RenderAction("NotLogInBar");
+    <div id="chicks" hidden class="f">
+    </div>
 }
 else
 {
     Html.RenderAction("LogInBar", new { user = @ViewData["user"] });
+    <div id="chicks" hidden class="t">
+    </div>
 }
 <div class="container-fluid">
     <!-- Content Row(col-3-9) -->
@@ -61,9 +65,10 @@ else
         </div>
     </div>
 </div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
-    
+
     $(function () {
         $(document).on("click", ".category", function (e) {
             console.log(e.target.innerText);
@@ -78,7 +83,7 @@ else
                     $(".page").html(result);
                 }
             });
-           // $(".page").load($(@@Html.RenderAction("CategoryPage", new { categoryName = "上衣1" }; ) ));
+            // $(".page").load($(@@Html.RenderAction("CategoryPage", new { categoryName = "上衣1" }; ) ));
         })
         $(document).on("click", ".product", function (e) {
             console.log(e);
@@ -131,6 +136,30 @@ else
         $(document).on("change", "#Product-Size", function (e) {
             console.log(e);
             quantity();
+        })
+        $(document).on("click", "#shopping", function () {
+            console.log($("#chicks"));
+            if ($(".quantry").text() == "剩餘數量 : 0") {
+                return false
+            }
+            else if ($("#chicks").attr('class') == "f") {
+                alert("請先登入");
+                return false
+            }
+            else {
+                $.ajax({
+                    url: "/Shopping/PutInCookie",
+                    data: {
+                        productid: $("#pid").text(),
+                        color: $("#Product-Color").val(),
+                        size: $("#Product-Size").val(),
+                        Quantity: $("#count").val(),
+                    },
+                    success: function (result) {
+                        location.href = "/Shopping/Index";
+                    }
+                });
+            }
         })
     })
 </script>
