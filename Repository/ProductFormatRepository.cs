@@ -13,63 +13,48 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
 {
     public class ProductFormatRepository
     {
-        public void Create(ProductFormat model)
+        public void Create(ProductFormat model, IDbConnection connection)
         {
-            SqlConnection connection = new SqlConnection(
-                "data source=.; database=Commerce; integrated security=true");
-            var sql = "INSERT INTO ProductFormat VALUES ( @ProductID, @Size, @Color, @StockQuantity)";
-
-            SqlCommand command = new SqlCommand(sql, connection);
-
-            command.Parameters.AddWithValue("@ProductID", model.ProductID);
-            command.Parameters.AddWithValue("@Size", model.Size);
-            command.Parameters.AddWithValue("@Color", model.Color);
-            command.Parameters.AddWithValue("@StockQuantity", model.StockQuantity);
-
-
-            connection.Open();
-            command.ExecuteNonQuery();
-            connection.Close();
+            connection.Execute("INSERT INTO ProductFormat VALUES ( @ProductID, @Size, @Color, @StockQuantity, @Image)",
+                new
+                {
+                    model.ProductID,
+                    model.Size,
+                    model.Color,
+                    model.StockQuantity,
+                    model.Image
+                });
         }
 
-        public void Update(ProductFormat model)
+        public void Update(ProductFormat model, IDbConnection connection)
         {
-            SqlConnection connection = new SqlConnection(
-                "data source=.; database=Commerce; integrated security=true");
-            var sql = "UPDATE ProductFormat SET Size = @Size, Color = @Color, StockQuantity = @StockQuantity WHERE ProductFormatID = @ProductFormatID";
-
-            SqlCommand command = new SqlCommand(sql, connection);
-
-            command.Parameters.AddWithValue("@ProductFormatID", model.ProductFormatID);
-            command.Parameters.AddWithValue("@ProductID", model.ProductID);
-            command.Parameters.AddWithValue("@Size", model.Size);
-            command.Parameters.AddWithValue("@Color", model.Color);
-            command.Parameters.AddWithValue("@StockQuantity", model.StockQuantity);
-
-            connection.Open();
-            command.ExecuteNonQuery();
-            connection.Close();
+            connection.Execute("UPDATE ProductFormat SET Size = @Size, Color = @Color, StockQuantity = @StockQuantity, Image=@Image WHERE ProductFormatID = @ProductFormatID",
+                new
+                {
+                    model.Size,
+                    model.Color,
+                    model.StockQuantity,
+                    model.Image,
+                    model.ProductFormatID
+                });
         }
 
-        public void Delete(ProductFormat model)
+        public void Delete(ProductFormat model, IDbConnection connection)
         {
-            SqlConnection connection = new SqlConnection(
-                "data source=.; database=Commerce; integrated security=true");
-            var sql = "DELETE FROM ProductFormat WHERE ProductFormatID = @ProductFormatID ";
-
-            SqlCommand command = new SqlCommand(sql, connection);
-
-            command.Parameters.AddWithValue("@ProductFormatID", model.ProductFormatID);
-
-            connection.Open();
-            command.ExecuteNonQuery();
-            connection.Close();
+            connection.Execute("DELETE FROM ProductFormat WHERE ProductFormatID = @ProductFormatID",
+                new
+                {
+                    model.ProductFormatID
+                });
         }
 
-        public ProductFormat FindById(int ProductFormatID)
+        public ProductFormat FindById(int ProductFormatID, IDbConnection connection)
         {
-            IDbConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
-            var result = connection.Query<ProductFormat>("SELECT * FROM ProductFormat WHERE ProductFormatID = @ProductFormatID", new { ProductFormatID });
+            var result = connection.Query<ProductFormat>("SELECT * FROM ProductFormat WHERE ProductFormatID = @ProductFormatID", 
+                new
+                {
+                    ProductFormatID
+                });
             ProductFormat productFormat = null;
             foreach (var item in result)
             {
@@ -78,9 +63,8 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
             return productFormat;
         }
 
-        public IEnumerable<ProductFormat> GetAll()
+        public IEnumerable<ProductFormat> GetAll(IDbConnection connection)
         {
-            IDbConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
             return connection.Query<ProductFormat>("SELECT * FROM ProductFormat ");
         }
     }

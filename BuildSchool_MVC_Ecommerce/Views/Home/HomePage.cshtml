@@ -52,64 +52,16 @@
     {
         <div class="col-sm-4 border border-secondary">
             <div>
-                <img class="product" name=@item.ProductID src=@item.ProductImage alt="Card image cap">
+                <img class="product" id=@item.ProductID src=@item.ProductImage alt="Card image cap">
                 <div>
-                    <h5 class="mt-2 product" name=@item.ProductID>@item.ProductName</h5>
-                    @*<p>
-                            @item.Description
-                        </p>*@
-                    <a href="#">
-                        <p class="text-right product" name=@item.ProductID style="color: #3F4739">more</p>
+                    <h5 class="mt-2 product" id=@item.ProductID>@item.ProductName</h5>
+                    <a>
+                        <p class="text-right product" id=@item.ProductID style="color: #3F4739">more</p>
                     </a>
                 </div>
             </div>
         </div>
     }
-    @*<div class="col-4 border border-secondary">
-            <div>
-                <img src="http://www.niusnews.com/upload/posts/po3_23028_1405580759.jpg" alt="Card image cap">
-                <div>
-                    <h5 class="mt-2">Card title</h5>
-                    <p>
-                        Some quick example text to build on the card title and make up the bulk of the card's
-                        content.
-                    </p>
-                    <a href="#">
-                        <p class="text-right" style="color: #3F4739">more</p>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="col-4 border border-secondary">
-            <div>
-                <img src="http://www.gw12580.com/uploads/allimg/150906/1-150Z60953580-L.jpg" alt="Card image cap">
-                <div>
-                    <h5 class="mt-2">Card title</h5>
-                    <p>
-                        Some quick example text to build on the card title and make up the bulk of the card's
-                        content.
-                    </p>
-                    <a href="#">
-                        <p class="text-right" style="color: #3F4739">more</p>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="col-4 border border-secondary">
-            <div>
-                <img src="https://www.settour.com.tw/act/gfg/korea/snowgift/images/button_item_03.jpg" alt="Card image cap">
-                <div>
-                    <h5 class="mt-2">Card title</h5>
-                    <p>
-                        Some quick example text to build on the card title and make up the bulk of the card's
-                        content.
-                    </p>
-                    <a href="#">
-                        <p class="text-right" style="color: #3F4739">more</p>
-                    </a>
-                </div>
-            </div>
-        </div>*@
 </div>
 <!-- (col-9)Row of the hottest Product Info -->
 <div class="row mt-3 pt-2 text-white" style="background-color:#717568">
@@ -122,81 +74,17 @@
     {
         <div class="col-sm-4 border border-secondary">
             <div>
-                <img class="product" name=@item.ProductID src=@item.ProductImage alt="Card image cap">
+                <img class="product" id=@item.ProductID src=@item.ProductImage alt="Card image cap">
                 <div>
-                    <h5 class="mt-2 product" name=@item.ProductID>@item.ProductName</h5>
+                    <h5 class="mt-2 product" id=@item.ProductID>@item.ProductName</h5>
                     @*<p>
                         @item.Description
                     </p>*@
-                    <a href="#">
-                        <p class="text-right product" name=@item.ProductID style="color: #3F4739">more</p>
+                    <a>
+                        <p class="text-right product" id=@item.ProductID style="color: #3F4739">more</p>
                     </a>
                 </div>
             </div>
         </div>
     }
-    @*<div class="col-4 border border-secondary">
-            <div>
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8EeJvvHzNOyeScVKhF1HOrr4ep1QDEjamddTAIT9o_yn-MQD7" alt="Card image cap">
-                <div>
-                    <h5 class="mt-2">Card title</h5>
-                    <p>
-                        Some quick example text to build on the card title and make up the bulk of the card's
-                        content.
-                    </p>
-                    <a href="#">
-                        <p class="text-right" style="color: #3F4739">more</p>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="col-4 border border-secondary">
-            <div>
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyGhSQTpN4NjlWYg_TqEn-tLSOIOWFfamDUPPO6k4GZHjKAllTnA" alt="Card image cap">
-                <div>
-                    <h5 class="mt-2">Card title</h5>
-                    <p>
-                        Some quick example text to build on the card title and make up the bulk of the card's
-                        content.
-                    </p>
-                    <a href="#">
-                        <p class="text-right" style="color: #3F4739">more</p>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="col-4 border border-secondary">
-            <div>
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqApthUPf3FzYRxCXVGkFnwFFRN2VQ3f8J1yQx8jWTwu4l6nHOxQ" alt="Card image cap">
-                <div>
-                    <h5 class="mt-2">Card title</h5>
-                    <p>
-                        Some quick example text to build on the card title and make up the bulk of the card's
-                        content.
-                    </p>
-                    <a href="#">
-                        <p class="text-right" style="color: #3F4739">more</p>
-                    </a>
-                </div>
-            </div>
-        </div>*@
 </div>
-@*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script>
-    $(function () {
-        $(document).on("click", ".product", function (e) {
-            console.log(e.target.innerText);
-            //var category = e.target.innerText;
-            $(".page").empty();
-            $.ajax({
-                url: "/Home/ProductPage",
-                data: {
-                    categoryName: e.target.value,
-                },
-                success: function (result) {
-                    $(".page").html(result);
-                }
-            });
-        })
-    })
-</script>*@

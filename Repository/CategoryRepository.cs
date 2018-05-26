@@ -13,57 +13,41 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
 {
     public class CategoryRepository
     {
-        public void Create(Category model)
+        public void Create(Category model, IDbConnection connection)
         {
-            SqlConnection connection = new SqlConnection(
-                "data source=.; database=Commerce; integrated security=true");
-            var sql = "INSERT INTO Category VALUES ( @CategoryName)";
-
-            SqlCommand command = new SqlCommand(sql, connection);
-
-            command.Parameters.AddWithValue("@CategoryName", model.CategoryName);
-
-            connection.Open();
-            command.ExecuteNonQuery();
-            connection.Close();
+            connection.Execute("INSERT INTO Category VALUES ( @CategoryName )", 
+                new
+                {
+                    model.CategoryName
+                });
         }
 
 
-        public void Update(Category model)
+        public void Update(Category model, IDbConnection connection)
         {
-            SqlConnection connection = new SqlConnection(
-                "data source=.; database=Commerce; integrated security=true");
-            var sql = "UPDATE Category SET CategoryName = @CategoryName WHERE CategoryID = @CategoryID";
-
-            SqlCommand command = new SqlCommand(sql, connection);
-
-            command.Parameters.AddWithValue("@CategoryID", model.CategoryID);
-            command.Parameters.AddWithValue("@CategoryName", model.CategoryName);
-
-            connection.Open();
-            command.ExecuteNonQuery();
-            connection.Close();
+            connection.Execute("UPDATE Category SET CategoryName = @CategoryName WHERE CategoryID = @CategoryID",
+                new
+                {
+                    model.CategoryName, model.CategoryID
+                });
         }
 
-        public void Delete(Category model)
+        public void Delete(Category model, IDbConnection connection)
         {
-            SqlConnection connection = new SqlConnection(
-                "data source=.; database=Commerce; integrated security=true");
-            var sql = "DELETE FROM Category WHERE CategoryID = @CategoryID ";
-
-            SqlCommand command = new SqlCommand(sql, connection);
-
-            command.Parameters.AddWithValue("@CategoryID", model.CategoryID);
-
-            connection.Open();
-            command.ExecuteNonQuery();
-            connection.Close();
+            connection.Execute("DELETE FROM Category WHERE CategoryID = @CategoryID",
+                new
+                {
+                    model.CategoryID
+                });
         }
 
-        public Category FindById(int CategoryID)
+        public Category FindById(int CategoryID, IDbConnection connection)
         {
-            IDbConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
-            var result = connection.Query<Category>("SELECT * FROM Category WHERE CategoryID = @CategoryID", new { CategoryID });
+            var result = connection.Query<Category>("SELECT * FROM Category WHERE CategoryID = @CategoryID", 
+                new
+                {
+                    CategoryID
+                });
             Category category = null;
             foreach (var item in result)
             {
@@ -71,41 +55,17 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
             }
             return category;
         }
-        //public Category FindCategoryName(string CategoryName)
-        //{
-        //    SqlConnection connection = new SqlConnection(
-        //        "data source=.; database=Commerce; integrated security=true");
-        //    var sql = "SELECT * FROM Category WHERE CategoryName = @CategoryName";
-
-        //    SqlCommand command = new SqlCommand(sql, connection);
-
-        //    command.Parameters.AddWithValue("@CategoryName", CategoryName);
-
-        //    connection.Open();
-
-        //    var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
-        //    var properties = typeof(Category).GetProperties();
-        //    Category category = null;
-
-        //    while (reader.Read())
-        //    {
-        //        category = new Category();
-        //        category = DbReaderModelBinder<Category>.Bind(reader);
-        //    }
-
-        //    reader.Close();
-
-        //    return category;
-        //}
-        public IEnumerable<Category> GetAll()
+        public IEnumerable<Category> GetAll(IDbConnection connection)
         {
-            IDbConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
             return connection.Query<Category>("SELECT * FROM Category");
         }
-        public IEnumerable<FindProductsByCategory> FindProductsByCategory()
+        public IEnumerable<FindProductsByCategory> FindProductsByCategory(IDbConnection connection)
         {
-            IDbConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
-            return connection.Query<FindProductsByCategory>("FindProductsByCategory", new { }, commandType: CommandType.StoredProcedure);
+            return connection.Query<FindProductsByCategory>("FindProductsByCategory", 
+                new
+                {
+
+                }, commandType: CommandType.StoredProcedure);
         }
     }
 }

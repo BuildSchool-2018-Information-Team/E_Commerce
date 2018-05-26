@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using BuildSchool.MvcSolution.OnlineStore.Repository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -8,13 +10,7 @@ namespace CommerceTest
     [TestClass]
     public class TestGetFunction
     {
-        //[TestMethod]
-        //public void Test_GetCategoryName()
-        //{
-        //    var repository = new CategoryRepository();
-        //    var category = repository.FindCategoryName("abc");
-        //    Assert.IsNull(category);
-        //}
+        IDbConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
         [TestMethod]
         public void Test_FindProductFormatByProductID()
         {
@@ -33,14 +29,14 @@ namespace CommerceTest
         public void Test_FindProductsByCategory()
         {
             var repository = new CategoryRepository();
-            var category = repository.FindProductsByCategory();
+            var category = repository.FindProductsByCategory(connection);
             Assert.IsTrue(category.Count() == 0);
         }
         [TestMethod]
         public void Test_GetBuyerOrder()
         {
             var repository = new MemberRepository();
-            var member = repository.GetBuyerOrder("123");
+            var member = repository.GetBuyerOrder("123", connection);
             Assert.IsTrue(member.Count() == 0);
         }
         [TestMethod]
@@ -61,7 +57,7 @@ namespace CommerceTest
         public void Test_FindByName()
         {
             var repository = new EmployeesRepository();
-            var product = repository.FindByName("abc");
+            var product = repository.FindByName("abc", connection);
             Assert.IsNull(product);
         }
         [TestMethod]
@@ -75,7 +71,7 @@ namespace CommerceTest
         public void Test_GetHowLongHireDate()
         {
             var repository = new EmployeesRepository();
-            var employee = repository.GetHowLongHireDate();
+            var employee = repository.GetHowLongHireDate(connection);
             Assert.IsTrue(employee.Count() >= 0);
         }
         [TestMethod]
@@ -89,7 +85,7 @@ namespace CommerceTest
         public void Test_FindByHireYear()
         {
             var repository = new EmployeesRepository();
-            var employee = repository.FindByHireYear(1900, 2000);
+            var employee = repository.FindByHireYear(1900, 2000, connection);
             Assert.IsTrue(employee.Count() >= 0);
         }
     }

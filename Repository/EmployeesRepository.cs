@@ -13,210 +13,93 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
 {
     public class EmployeesRepository
     {
-        public void Create(Employees model)
+        public void Create(Employees model, IDbConnection connection)
         {
-            SqlConnection connection = new SqlConnection(
-                "data source=.; database=Commerce; integrated security=true");
-            var sql = "INSERT INTO Employees VALUES ( @Name, @Phone, @HireDate)";
-
-            SqlCommand command = new SqlCommand(sql, connection);
-
-            command.Parameters.AddWithValue("@Name", model.Name);
-            command.Parameters.AddWithValue("@Phone", model.Phone);
-            command.Parameters.AddWithValue("@HireDate", model.HireDate);
-
-            connection.Open();
-            command.ExecuteNonQuery();
-            connection.Close();
+            connection.Execute("INSERT INTO Employees(Name, Phone, HireDate, Email, Image) VALUES ( @Name, @Phone, @HireDate, @Email, @Image)",
+                new
+                {
+                    model.Name,
+                    model.Phone,
+                    model.HireDate,
+                    model.Email,
+                    model.Image
+                });
         }
 
-        public void Update(Employees model)
+        public void Update(Employees model, IDbConnection connection)
         {
-            SqlConnection connection = new SqlConnection(
-                "data source=.; database=Commerce; integrated security=true");
-            var sql = "UPDATE Employees SET Name=@Name, Phone=@Phone WHERE EmployeeID = @EmployeeID";
-
-            SqlCommand command = new SqlCommand(sql, connection);
-
-            command.Parameters.AddWithValue("@EmployeeID", model.EmployeeID);
-            command.Parameters.AddWithValue("@Name", model.Name);
-            command.Parameters.AddWithValue("@Phone", model.Phone);
-
-            connection.Open();
-            command.ExecuteNonQuery();
-            connection.Close();
+            connection.Execute("UPDATE Employees SET Name=@Name, Phone=@Phone, Email=@Email, Image=@Image WHERE EmployeeID = @EmployeeID",
+                new
+                {
+                    model.Name,
+                    model.Phone,
+                    model.Email,
+                    model.Image,
+                    model.EmployeeID
+                });
+        }
+        public void UpdateGUID(Employees model, IDbConnection connection)
+        {
+            connection.Execute("UPDATE Employees SET EmployeeGUID=@EmployeeGUID WHERE EmployeeID = @EmployeeID",
+                new
+                {
+                    model.EmployeeGUID,
+                    model.EmployeeID
+                });
         }
 
-        public void Delete(Employees model)
+        public void Delete(Employees model, IDbConnection connection)
         {
-            SqlConnection connection = new SqlConnection(
-                "data source=.; database=Commerce; integrated security=true");
-            var sql = "DELETE FROM Employees WHERE EmployeeID = @EmployeeID";
-
-            SqlCommand command = new SqlCommand(sql, connection);
-
-            command.Parameters.AddWithValue("@EmployeeID", model.EmployeeID);
-
-            connection.Open();
-            command.ExecuteNonQuery();
-            connection.Close();
+            connection.Execute("DELETE FROM Employees WHERE EmployeeID = @EmployeeID", 
+                new
+                {
+                    model.EmployeeID
+                });
         }
 
-        public Employees FindById(int EmployeeID)
+        public Employees FindById(int EmployeeID, IDbConnection connection)
         {
-            IDbConnection connection = new SqlConnection(
-                "data source=.; database=Commerce; integrated security=true");
-
-            var result = connection.Query<Employees>("SELECT * FROM Employees WHERE EmployeeID = @EmployeeID", new { EmployeeID });
+            var result = connection.Query<Employees>("SELECT * FROM Employees WHERE EmployeeID = @EmployeeID", 
+                new
+                {
+                    EmployeeID
+                });
             Employees employee = null;
             foreach (var item in result)
             {
                 employee = item;
             }
             return employee;
-
-            //SqlConnection connection = new SqlConnection(
-            //    "data source=.; database=Commerce; integrated security=true");
-            //var sql = "SELECT * FROM Employees WHERE EmployeeID = @EmployeeID";
-
-            //SqlCommand command = new SqlCommand(sql, connection);
-
-            //command.Parameters.AddWithValue("@EmployeeID", EmployeeID);
-
-            //connection.Open();
-
-            //var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
-            //var properties = typeof(Employees).GetProperties();
-            //Employees employee = null;
-
-            //while (reader.Read())
-            //{
-            //    employee = new Employees();
-            //    employee = DbReaderModelBinder<Employees>.Bind(reader);
-            //}
-
-            //reader.Close();
-
-            //return employee;
         }
 
-        public IEnumerable<Employees> GetAll()
+        public IEnumerable<Employees> GetAll(IDbConnection connection)
         {
-            IDbConnection connection = new SqlConnection(
-                "data source=.; database=Commerce; integrated security=true");
-
-            var result = connection.Query<Employees>("SELECT * FROM employees");
-            var employees = new List<Employees>();
-            foreach (var item in result)
-            {
-                employees.Add(item);
-            }
-            return employees;
-
-            //SqlConnection connection = new SqlConnection(
-            //    "data source=.; database=Commerce; integrated security=true");
-            //var sql = "SELECT * FROM employees";
-
-            //SqlCommand command = new SqlCommand(sql, connection);
-            //connection.Open();
-
-            //var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
-            //var properties = typeof(Employees).GetProperties();
-            //var employees = new List<Employees>();
-
-            //while (reader.Read())
-            //{
-            //    var employee = new Employees();
-            //    employee = DbReaderModelBinder<Employees>.Bind(reader);
-            //    employees.Add(employee);
-            //}
-
-            //reader.Close();
-
-            //return employees;
-
+            return connection.Query<Employees>("SELECT * FROM employees");
         }
 
-        public IEnumerable<Employees> FindByHireYear(int startYear, int endYear)
+        public IEnumerable<Employees> FindByHireYear(int startYear, int endYear, IDbConnection connection)
         {
-            IDbConnection connection = new SqlConnection(
-                "data source=.; database=Commerce; integrated security=true");
-
-            var result = connection.Query<Employees>("SELECT * FROM Employees WHERE YEAR(HireDate) BETWEEN @startYear AND @endYear ORDER BY HireDate DESC", new { startYear, endYear });
-            var employees = new List<Employees>();
-            foreach (var item in result)
-            {
-                employees.Add(item);
-            }
-            return employees;
-
-            //SqlConnection connection = new SqlConnection(
-            //    "data source=.; database=Commerce; integrated security=true");
-            //var sql = "SELECT * FROM Employees WHERE YEAR(HireDate) BETWEEN @startYear AND @endYear ORDER BY HireDate DESC";
-
-            //SqlCommand command = new SqlCommand(sql, connection);
-
-            //command.Parameters.AddWithValue("@startYear", startYear);
-            //command.Parameters.AddWithValue("@endYear", endYear);
-
-            //connection.Open();
-
-            //var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
-            //var employees = new List<Employees>();
-
-            //while (reader.Read())
-            //{
-            //    Employees employee = new Employees();
-            //    employee = DbReaderModelBinder<Employees>.Bind(reader);
-            //    employees.Add(employee);
-            //}
-
-            //reader.Close();
-
-            //return employees;
+            return connection.Query<Employees>("SELECT * FROM Employees WHERE YEAR(HireDate) BETWEEN @startYear AND @endYear ORDER BY HireDate DESC", 
+                new
+                {
+                    startYear, endYear
+                });
         }
-        public IEnumerable<GetHowLongHireDate> GetHowLongHireDate()
+        public IEnumerable<GetHowLongHireDate> GetHowLongHireDate(IDbConnection connection)
         {
-            SqlConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
-            return connection.Query<GetHowLongHireDate>("GetHowLongHireDate", new { }, commandType: CommandType.StoredProcedure);
+            return connection.Query<GetHowLongHireDate>("GetHowLongHireDate", 
+                new
+                {
+
+                }, commandType: CommandType.StoredProcedure);
         }
-        public Employees FindByName(string Name)
+        public IEnumerable<Employees> FindByName(string Name, IDbConnection connection)
         {
-            IDbConnection connection = new SqlConnection(
-                "data source=.; database=Commerce; integrated security=true");
-
-            var result = connection.Query<Employees>("SELECT * FROM Employees WHERE Name = @Name", new { Name });
-            Employees employee = null;
-            foreach (var item in result)
-            {
-                employee = item;
-            }
-            return employee;
-
-
-            //SqlConnection connection = new SqlConnection(
-            //    "data source=.; database=Commerce; integrated security=true");
-            //var sql = "SELECT * FROM Employees WHERE Name = @Name";
-
-            //SqlCommand command = new SqlCommand(sql, connection);
-
-            //command.Parameters.AddWithValue("@Name", Name);
-
-            //connection.Open();
-
-            //var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
-            //var properties = typeof(Employees).GetProperties();
-            //Employees employee = null;
-
-            //while (reader.Read())
-            //{
-            //    employee = new Employees();
-            //    employee = DbReaderModelBinder<Employees>.Bind(reader);
-            //}
-
-            //reader.Close();
-
-            //return employee;
+            return connection.Query<Employees>("SELECT * FROM Employees WHERE Name = @Name", 
+                new
+                {
+                    Name
+                });
         }
     }
 }

@@ -13,103 +13,57 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
 {
     public class OrdersRepository
     {
-        public void Create(Orders model, SqlConnection connection, IDbTransaction transaction)
+        public void Create(Orders model, IDbConnection connection, IDbTransaction transaction)
         {
-            //SqlConnection connection = new SqlConnection(
-            //    "data source=.; database=Commerce; integrated security=true");
-            var sql = "INSERT INTO Orders VALUES ( @EmployeeID, @MemberID, @ShipName, @ShipAddress, @ShipPhone, @ShippedDate, @OrderDate, @ReceiptedDate, @Discount, @Status)";
-
-            SqlCommand command = new SqlCommand(sql, connection);
-
-            command.Parameters.AddWithValue("@EmployeeID", model.EmployeeID);
-            command.Parameters.AddWithValue("@MemberID", model.MemberID);
-            command.Parameters.AddWithValue("@ShipName", model.ShipName);
-            command.Parameters.AddWithValue("@ShipAddress", model.ShipAddress);
-            command.Parameters.AddWithValue("@ShipPhone", model.ShipPhone);
-            if (model.ShippedDate != null)
-            {
-                command.Parameters.AddWithValue("@ShippedDate", model.ShippedDate);
-            }
-            else
-            {
-                command.Parameters.AddWithValue("@ShippedDate", DBNull.Value);
-            }
-            command.Parameters.AddWithValue("@OrderDate", model.OrderDate);
-            if (model.ReceiptedDate != null)
-            {
-                command.Parameters.AddWithValue("@ReceiptedDate", model.ReceiptedDate);
-            }
-            else
-            {
-                command.Parameters.AddWithValue("@ReceiptedDate", DBNull.Value);
-            }
-            command.Parameters.AddWithValue("@Discount", model.Discount);
-            command.Parameters.AddWithValue("@Status", model.Status);
-
-            connection.Open();
-            command.ExecuteNonQuery();
-            connection.Close();
-
+            connection.Execute("INSERT INTO Orders VALUES ( @EmployeeID, @MemberID, @ShipName, @ShipAddress, @ShipPhone, @ShippedDate, @OrderDate, @ReceiptedDate, @Discount, @Status)", 
+                new
+                {
+                    model.EmployeeID,
+                    model.MemberID,
+                    model.ShipName,
+                    model.ShipAddress,
+                    model.ShipPhone,
+                    model.ShippedDate,
+                    model.OrderDate,
+                    model.ReceiptedDate,
+                    model.Discount,
+                    model.Status
+                },transaction);
         }
 
-        public void Update(Orders model)
+        public void Update(Orders model, IDbConnection connection)
         {
-            SqlConnection connection = new SqlConnection(
-                "data source=.; database=Commerce; integrated security=true");
-            var sql = "UPDATE Orders SET EmployeeID = @EmployeeID, MemberID = @MemberID, ShipName = @ShipName, ShipAddress = @ShipAddress, ShipPhone = @ShipPhone, ShippedDate = @ShippedDate, OrderDate=@OrderDate, ReceiptedDate=@ReceiptedDate, Discount=@Discount, Status = @Status WHERE OrderID = @OrderID ";
-
-            SqlCommand command = new SqlCommand(sql, connection);
-
-            command.Parameters.AddWithValue("@OrderID", model.OrderID);
-            command.Parameters.AddWithValue("@EmployeeID", model.EmployeeID);
-            command.Parameters.AddWithValue("@MemberID", model.MemberID);
-            command.Parameters.AddWithValue("@ShipName", model.ShipName);
-            command.Parameters.AddWithValue("@ShipAddress", model.ShipAddress);
-            command.Parameters.AddWithValue("@ShipPhone", model.ShipPhone);
-            if (model.ShippedDate != null)
-            {
-                command.Parameters.AddWithValue("@ShippedDate", model.ShippedDate);
-            }
-            else
-            {
-                command.Parameters.AddWithValue("@ShippedDate", DBNull.Value);
-            }
-            command.Parameters.AddWithValue("@OrderDate", model.OrderDate);
-            if (model.ReceiptedDate != null)
-            {
-                command.Parameters.AddWithValue("@ReceiptedDate", model.ReceiptedDate);
-            }
-            else
-            {
-                command.Parameters.AddWithValue("@ReceiptedDate", DBNull.Value);
-            }
-            command.Parameters.AddWithValue("@Discount", model.Discount);
-            command.Parameters.AddWithValue("@Status", model.Status);
-
-            connection.Open();
-            command.ExecuteNonQuery();
-            connection.Close();
-
+            connection.Execute("UPDATE Orders SET EmployeeID = @EmployeeID, MemberID = @MemberID, ShipName = @ShipName, ShipAddress = @ShipAddress, ShipPhone = @ShipPhone, ShippedDate = @ShippedDate, OrderDate=@OrderDate, ReceiptedDate=@ReceiptedDate, Discount=@Discount, Status = @Status WHERE OrderID = @OrderID",
+                new
+                {
+                    model.EmployeeID,
+                    model.MemberID,
+                    model.ShipName,
+                    model.ShipAddress,
+                    model.ShipPhone,
+                    model.ShippedDate,
+                    model.OrderDate,
+                    model.ReceiptedDate,
+                    model.Discount,
+                    model.Status,
+                    model.OrderID
+                });
         }
-        public void Delete(Orders model)
+        public void Delete(Orders model, IDbConnection connection)
         {
-            SqlConnection connection = new SqlConnection(
-                "data source=.; database=Commerce; integrated security=true");
-            var sql = "DELETE FROM Orders WHERE OrderID = @OrderID";
-
-            SqlCommand command = new SqlCommand(sql, connection);
-
-            command.Parameters.AddWithValue("@OrderID", model.OrderID);
-
-            connection.Open();
-            command.ExecuteNonQuery();
-            connection.Close();
-
+            connection.Execute("DELETE FROM Orders WHERE OrderID = @OrderID",
+                new
+                {
+                    model.OrderID
+                });
         }
-        public Orders FindById(int OrderID)
+        public Orders FindById(int OrderID, IDbConnection connection)
         {
-            IDbConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
-            var result = connection.Query<Orders>("select * FROM Orders WHERE OrderID = @OrderID", new { OrderID });
+            var result = connection.Query<Orders>("select * FROM Orders WHERE OrderID = @OrderID", 
+                new
+                {
+                    OrderID
+                });
             Orders order = null;
             foreach (var item in result)
             {
@@ -117,24 +71,32 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
             }
             return order;
         }
-        public IEnumerable<Orders> GetStatus(string Status)
+        public IEnumerable<Orders> GetStatus(string Status, IDbConnection connection)
         {
-            IDbConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
-            return connection.Query<Orders>("select * FROM Orders WHERE Status = @Status", new { Status });
+            return connection.Query<Orders>("select * FROM Orders WHERE Status = @Status", 
+                new
+                {
+                    Status
+                });
         }
-        public IEnumerable<FindOrderdetaiByOrderID> FindOrderdetaiByOrderID(int orderid)
+        public IEnumerable<FindOrderdetaiByOrderID> FindOrderdetaiByOrderID(int orderid, IDbConnection connection)
         {
-            IDbConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
-            return connection.Query<FindOrderdetaiByOrderID>("FindOrderdetaiByOrderID", new {  orderid}, commandType: CommandType.StoredProcedure);
+            return connection.Query<FindOrderdetaiByOrderID>("FindOrderdetaiByOrderID", 
+                new
+                {
+                    orderid
+                }, commandType: CommandType.StoredProcedure);
         }
-        public IEnumerable<Orders> GetOrderDate(string OrderDate)
+        public IEnumerable<Orders> GetOrderDate(string OrderDate, IDbConnection connection)
         {
-            IDbConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
-            return connection.Query<Orders>("select * FROM Orders WHERE CONVERT(VARCHAR(25), OrderDate, 126) LIKE @OrderDate", new { OrderDate });
+            return connection.Query<Orders>("select * FROM Orders WHERE CONVERT(VARCHAR(25), OrderDate, 126) LIKE @OrderDate", 
+                new
+                {
+                    OrderDate
+                });
         }
-        public IEnumerable<Orders> GetAll()
+        public IEnumerable<Orders> GetAll(IDbConnection connection)
         {
-            IDbConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
             return connection.Query<Orders>("select * FROM Orders ");
         }
     }

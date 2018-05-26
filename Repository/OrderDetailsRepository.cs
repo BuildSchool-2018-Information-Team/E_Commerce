@@ -12,71 +12,61 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
 {
     public class OrderDetailsRepository
     {
-        public void Create(OrderDetails model, SqlConnection connection, IDbTransaction transaction)
+        public void Create(OrderDetails model, IDbConnection connection, IDbTransaction transaction)
         {
-            //SqlConnection connection = new SqlConnection(
-            //    "data source=.; database=Commerce; integrated security=true");
-            var sql = "INSERT INTO OrderDetails VALUES (@OrderID, @ProductFormatID, @Quantity, @UnitPrice) ";
+            connection.Execute("INSERT INTO OrderDetails VALUES (@OrderID, @ProductFormatID, @Quantity, @UnitPrice) ",
+                new
+                {
+                    model.OrderID,
+                    model.ProductFormatID,
+                    model.Quantity,
+                    model.UnitPrice
+                }, transaction);
 
             var request = new ProductFormatRepository();
-            var product = request.FindById(model.ProductFormatID);
+            var product = request.FindById(model.ProductFormatID, connection);
             if ((product.StockQuantity - model.Quantity) >= 0)
             {
-                sql = sql + "UPDATE ProductFormat SET StockQuantity = StockQuantity - @Quantity WHERE ProductFormatID = @ProductFormatID";
-                SqlCommand command = new SqlCommand(sql, connection);
-
-                command.Parameters.AddWithValue("@OrderID", model.OrderID);
-                command.Parameters.AddWithValue("@ProductFormatID", model.ProductFormatID);
-                command.Parameters.AddWithValue("@Quantity", model.Quantity);
-                command.Parameters.AddWithValue("@UnitPrice", model.UnitPrice);
-
-                connection.Open();
-                command.ExecuteNonQuery();
-                connection.Close();
+                connection.Execute("UPDATE ProductFormat SET StockQuantity = StockQuantity - @Quantity WHERE ProductFormatID = @ProductFormatID ",
+                new
+                {
+                    model.Quantity,
+                    model.ProductFormatID
+                }, transaction);
             }
             else
             {
-
+                throw (new Exception("No Quantity"));
             }
         }
-
-        public void Update(OrderDetails model)
+        public void Update(OrderDetails model, IDbConnection connection)
         {
-            SqlConnection connection = new SqlConnection(
-                "data source=.; database=Commerce; integrated security=true");
-            var sql = "UPDATE OrderDetails SET ProductFormatID = @ProductFormatID, Quantity = @Quantity, UnitPrice = @UnitPrice WHERE OrderID = @OrderID";
-
-            SqlCommand command = new SqlCommand(sql, connection);
-
-            command.Parameters.AddWithValue("@OrderID", model.OrderID);
-            command.Parameters.AddWithValue("@ProductFormatID", model.ProductFormatID);
-            command.Parameters.AddWithValue("@Quantity", model.Quantity);
-            command.Parameters.AddWithValue("@UnitPrice", model.UnitPrice);
-
-            connection.Open();
-            command.ExecuteNonQuery();
-            connection.Close();
+            connection.Execute("UPDATE OrderDetails SET ProductFormatID = @ProductFormatID, Quantity = @Quantity, UnitPrice = @UnitPrice WHERE OrderID = @OrderID",
+                new
+                {
+                    model.ProductFormatID,
+                    model.Quantity,
+                    model.UnitPrice,
+                    model.OrderID
+                });
         }
 
-        public void Delete(OrderDetails model)
+        public void Delete(OrderDetails model, IDbConnection connection)
         {
-            SqlConnection connection = new SqlConnection(
-                "data source=.; database=Commerce; integrated security=true");
-            var sql = "DELETE FROM OrderDetails WHERE OrderID = @OrderID";
-
-            SqlCommand command = new SqlCommand(sql, connection);
-
-            command.Parameters.AddWithValue("@OrderID", model.OrderID);
-
-            connection.Open();
-            command.ExecuteNonQuery();
-            connection.Close();
+            connection.Execute("DELETE FROM OrderDetails WHERE OrderID = @OrderID",
+                new
+                {
+                    model.OrderID
+                });
         }
 
-        public OrderDetails FindById(int OrderID)
+        public OrderDetails FindById(int OrderID, IDbConnection connection)
         {
-            IDbConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
-            var result = connection.Query<OrderDetails>("SELECT * FROM OrderDetails WHERE OrderID = @OrderID", new { OrderID });
+            var result = connection.Query<OrderDetails>("SELECT * FROM OrderDetails WHERE OrderID = @OrderID", 
+                new
+                {
+                    OrderID
+                });
             OrderDetails orderDetail = null;
             foreach (var item in result)
             {
@@ -85,9 +75,8 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
             return orderDetail;
         }
 
-        public IEnumerable<OrderDetails> GetAll()
+        public IEnumerable<OrderDetails> GetAll(IDbConnection connection)
         {
-            IDbConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
             return connection.Query<OrderDetails>("SELECT * FROM OrderDetails ");
         }
     }

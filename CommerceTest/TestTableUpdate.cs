@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using BuildSchool.MvcSolution.OnlineStore.Models;
 using BuildSchool.MvcSolution.OnlineStore.Repository;
@@ -9,6 +11,7 @@ namespace CommerceTest
     [TestClass]
     public class TestTableUpdate
     {
+        IDbConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
         [TestMethod]
         public void Categorys_Update()
         {
@@ -18,8 +21,8 @@ namespace CommerceTest
                 CategoryID = 1,
                 CategoryName = "上衣1"
             };
-            repository.Update(category);
-            var categorys = repository.FindById(1);
+            repository.Update(category, connection);
+            var categorys = repository.FindById(1, connection);
             Assert.IsTrue(categorys.CategoryName == "上衣1");
         }
         [TestMethod]
@@ -68,8 +71,8 @@ namespace CommerceTest
                 Email = "456@yahoo.com.tw",
                 Address = "300新竹市香山區五福路二段707號"
             };
-            repository.Update(member);
-            var members = repository.FindById("456");
+            repository.Update(member, connection);
+            var members = repository.FindById("456", connection);
             Assert.IsTrue(members.Email == "456@yahoo.com.tw");
         }
         [TestMethod]
@@ -83,8 +86,8 @@ namespace CommerceTest
                 Phone = "0123456789",
                 HireDate = new DateTime(1996, 06, 01),
             };
-            repository.Update(employee);
-            var employees = repository.FindById(1);
+            repository.Update(employee, connection);
+            var employees = repository.FindById(1, connection);
             Assert.IsTrue(employees.Name == "洪識超1");
         }
         [TestMethod]

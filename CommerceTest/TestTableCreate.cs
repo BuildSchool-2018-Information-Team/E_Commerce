@@ -3,12 +3,15 @@ using BuildSchool.MvcSolution.OnlineStore.Repository;
 using BuildSchool.MvcSolution.OnlineStore.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace CommerceTest
 {
     [TestClass]
     public class TestTableCreate
     {
+        IDbConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
         [TestMethod]
         public void Categorys_Create()
         {
@@ -28,7 +31,7 @@ namespace CommerceTest
             //    CategoryName = "褲子"
             //};
             //repository.Create(category2);
-            var categorys = repository.GetAll();
+            var categorys = repository.GetAll(connection);
             Assert.IsTrue(categorys.Count() > 0);
         }
         [TestMethod]
@@ -129,7 +132,7 @@ namespace CommerceTest
             //    Address = "300新竹市香山區五福路二段707號"
             //};
             //repository.Create(member1);
-            var members = repository.GetAll();
+            var members = repository.GetAll(connection);
             Assert.IsTrue(members.Count() > 0);
         }
         [TestMethod]
@@ -157,7 +160,7 @@ namespace CommerceTest
             //    HireDate = new DateTime(1996, 02, 16),
             //};
             //repository.Create(employee2);
-            var employees = repository.GetAll();
+            var employees = repository.GetAll(connection);
             Assert.IsTrue(employees.Count() > 0);
         }
         //[TestMethod]

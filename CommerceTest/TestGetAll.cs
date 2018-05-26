@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using BuildSchool.MvcSolution.OnlineStore.Repository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -8,11 +10,12 @@ namespace CommerceTest
     [TestClass]
     public class TestGetAll
     {
+        IDbConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
         [TestMethod]
         public void Test_GetAll_Category()
         {
             var repository = new CategoryRepository();
-            var category = repository.GetAll();
+            var category = repository.GetAll(connection);
             Assert.IsTrue(category.Count() >= 0);
         }
         [TestMethod]
@@ -26,14 +29,14 @@ namespace CommerceTest
         public void Test_GetAll_Employee()
         {
             var repository = new EmployeesRepository();
-            var employee = repository.GetAll();
+            var employee = repository.GetAll(connection);
             Assert.IsTrue(employee.Count() >= 0);
         }
         [TestMethod]
         public void Test_GetAll_Member()
         {
             var repository = new MemberRepository();
-            var member = repository.GetAll();
+            var member = repository.GetAll(connection);
             Assert.IsTrue(member.Count() >= 0);
         }
         [TestMethod]

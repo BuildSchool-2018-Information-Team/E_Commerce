@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utils", "Utils\Utils.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildSchool_MVC_Ecommerce", "BuildSchool_MVC_Ecommerce\BuildSchool_MVC_Ecommerce.csproj", "{D035BA2D-3E79-46C1-91CC-8DC09D65836C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildSchool_MVC_Ecommerce.Tests", "BuildSchool_MVC_Ecommerce.Tests\BuildSchool_MVC_Ecommerce.Tests.csproj", "{EF9A6210-1BC3-43E4-A48E-44AC3D3B07BA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildSchool_MVC_R7", "BuildSchool_MVC_R7\BuildSchool_MVC_R7.csproj", "{6E92C320-3E91-44CF-977B-B930B75DCB24}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +41,10 @@ Global
 		{D035BA2D-3E79-46C1-91CC-8DC09D65836C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D035BA2D-3E79-46C1-91CC-8DC09D65836C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D035BA2D-3E79-46C1-91CC-8DC09D65836C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EF9A6210-1BC3-43E4-A48E-44AC3D3B07BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EF9A6210-1BC3-43E4-A48E-44AC3D3B07BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EF9A6210-1BC3-43E4-A48E-44AC3D3B07BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EF9A6210-1BC3-43E4-A48E-44AC3D3B07BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E92C320-3E91-44CF-977B-B930B75DCB24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E92C320-3E91-44CF-977B-B930B75DCB24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E92C320-3E91-44CF-977B-B930B75DCB24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E92C320-3E91-44CF-977B-B930B75DCB24}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

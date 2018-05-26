@@ -42,134 +42,35 @@
         </div>
     </div>
 </div>
-    <!-- (col-9)Row of the newest Product Info -->
-    <div class="row mt-3">
-        <div class="col">
-            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <label class="btn btn-secondary active">
-                    <input type="radio" name="options" id="option1" autocomplete="off" checked> 最新上市
-                </label>
-                <label class="btn btn-secondary">
-                    <input type="radio" name="options" id="option2" autocomplete="off"> 熱銷產品
+<!-- (col-9)Row of the newest Product Info -->
+<div class="row mt-3">
+    <div class="col">
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-secondary active">
+                <input type="radio" name="options" id="option1" autocomplete="off" checked> 最新上市
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="options" id="option2" autocomplete="off"> 熱銷產品
 
-                </label>
-                <label class="btn btn-secondary">
-                    <input type="radio" name="options" id="option3" autocomplete="off"> 價格(低到高)
-                </label>
-            </div>
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="options" id="option3" autocomplete="off"> 價格(低到高)
+            </label>
         </div>
     </div>
-    <div class="row">
-        @foreach (var item in @ViewData["productcategory"] as IEnumerable<FindProductsByCategory>)
-        {
-            <div class="col-sm-4 mt-4 mr-2">
-                <a href="#">
-                    <img class="product" name=@item.ProductID src=@item.ProductImage alt="Card image cap">
-                </a>
-                <div>
-                    <h5 class="mt-2 product" name=@item.ProductID>@item.ProductName</h5>
-                    @*<p>test1</p>*@
-                    <p class="text-right" style="color:darkred">$@item.UnitPrice.ToString("#0.00")</p>
-                </div>
-            </div>
-        }
-        @*<div>
-                <a href="#">
-                    <img src="http://www.niusnews.com/upload/posts/po3_23028_1405580759.jpg" alt="Card image cap">
-                </a>
-                <div>
-                    <h5 class="mt-2">女款外套</h5>
-                    <p>短版修身外套 二色</p>
-                    <p class="text-right" style="color:darkred">$2800</p>
-                </div>
-            </div>
+</div>
+<div class="row">
+    @foreach (var item in @ViewData["productcategory"] as IEnumerable<FindProductsByCategory>)
+    {
+        <div class="col-sm-4 mt-4 mr-2">
+            <a>
+                <img class="product" id=@item.ProductID src=@item.ProductImage alt="Card image cap">
+            </a>
             <div>
-                <a href="#">
-                    <img src="http://www.niusnews.com/upload/posts/po3_23028_1405580759.jpg" alt="Card image cap">
-                </a>
-                <div>
-                    <h5 class="mt-2">女款外套</h5>
-                    <p>短版修身外套 二色</p>
-                    <p class="text-right" style="color:darkred">$2800</p>
-                </div>
+                <h5 class="mt-2 product" id=@item.ProductID>@item.ProductName</h5>
+                @*<p>test1</p>*@
+                <p class="text-right" style="color:darkred">$@item.UnitPrice.ToString("#0.00")</p>
             </div>
-            <div>
-                <a href="#">
-                    <img src="http://www.niusnews.com/upload/posts/po3_23028_1405580759.jpg" alt="Card image cap">
-                </a>
-                <div>
-                    <h5 class="mt-2">女款外套</h5>
-                    <p>短版修身外套 二色</p>
-                    <p class="text-right" style="color:darkred">$2800</p>
-                </div>
-            </div>
-            <div>
-                <a href="#">
-                    <img src="http://www.niusnews.com/upload/posts/po3_23028_1405580759.jpg" alt="Card image cap">
-                </a>
-                <div>
-                    <h5 class="mt-2">女款外套</h5>
-                    <p>短版修身外套 二色</p>
-                    <p class="text-right" style="color:darkred">$2800</p>
-                </div>
-            </div>
-            <div>
-                <a href="#">
-                    <img src="http://www.niusnews.com/upload/posts/po3_23028_1405580759.jpg" alt="Card image cap">
-                </a>
-                <div>
-                    <h5 class="mt-2">女款外套</h5>
-                    <p>短版修身外套 二色</p>
-                    <p class="text-right" style="color:darkred">$2800</p>
-                </div>
-            </div>
-            <div>
-                <a href="#">
-                    <img src="http://www.niusnews.com/upload/posts/po3_23028_1405580759.jpg" alt="Card image cap">
-                </a>
-                <div>
-                    <h5 class="mt-2">女款外套</h5>
-                    <p>短版修身外套 二色</p>
-                    <p class="text-right" style="color:darkred">$2800</p>
-                </div>
-            </div>
-            <div>
-                <a href="#">
-                    <img src="http://www.niusnews.com/upload/posts/po3_23028_1405580759.jpg" alt="Card image cap">
-                </a>
-                <div>
-                    <h5 class="mt-2">女款外套</h5>
-                    <p>短版修身外套 二色</p>
-                    <p class="text-right" style="color:darkred">$2800</p>
-                </div>
-            </div>
-            <div>
-                <a href="#">
-                    <img src="http://www.niusnews.com/upload/posts/po3_23028_1405580759.jpg" alt="Card image cap">
-                </a>
-                <div>
-                    <h5 class="mt-2">女款外套</h5>
-                    <p>短版修身外套 二色</p>
-                    <p class="text-right" style="color:darkred">$2800</p>
-                </div>
-            </div>*@
-    </div>
-    @*<nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>*@
+        </div>
+    }
+</div>

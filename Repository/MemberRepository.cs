@@ -13,139 +13,86 @@ namespace BuildSchool.MvcSolution.OnlineStore.Repository
 {
     public class MemberRepository
     {
-        public void Create(Members model)
+        public void Create(Members model, IDbConnection connection)
         {
-            SqlConnection connection = new SqlConnection(
-                "data source=.; database=Commerce; integrated security=true");
-            var sql = "INSERT INTO Members VALUES (@MemberID, @Password, @Name, @Phone, @Address, @Email)";
-
-            SqlCommand command = new SqlCommand(sql, connection);
-
-            command.Parameters.AddWithValue("@MemberID", model.MemberID);
-            command.Parameters.AddWithValue("@Password", model.Password);
-            command.Parameters.AddWithValue("@Name", model.Name);
-            command.Parameters.AddWithValue("@Phone", model.Phone);
-            command.Parameters.AddWithValue("@Address", model.Address);
-            command.Parameters.AddWithValue("@Email", model.Email);
-
-            connection.Open();
-            command.ExecuteNonQuery();
-            connection.Close();
+            connection.Execute("INSERT INTO Members(MemberID, Password, Name, Phone, Address, Email) " +
+                "VALUES (@MemberID, @Password, @Name, @Phone, @Address, @Email)",
+                new
+                {
+                    model.MemberID,
+                    model.Password,
+                    model.Name,
+                    model.Phone,
+                    model.Address,
+                    model.Email
+                });
         }
 
-        public void Update(Members model)
+        public void Update(Members model, IDbConnection connection)
         {
-            SqlConnection connection = new SqlConnection(
-                "data source=.; database=Commerce; integrated security=true");
-            var sql = "UPDATE Members SET Password=@Password, Name=@Name, Phone=@Phone, Address=@Address, Email=@Email WHERE MemberID = @MemberID";
-
-            SqlCommand command = new SqlCommand(sql, connection);
-
-            command.Parameters.AddWithValue("@MemberID", model.MemberID);
-            command.Parameters.AddWithValue("@Password", model.Password);
-            command.Parameters.AddWithValue("@Name", model.Name);
-            command.Parameters.AddWithValue("@Phone", model.Phone);
-            command.Parameters.AddWithValue("@Address", model.Address);
-            command.Parameters.AddWithValue("@Email", model.Email);
-
-            connection.Open();
-            command.ExecuteNonQuery();
-            connection.Close();
+            connection.Execute("UPDATE Members SET Password=@Password, Name=@Name, Phone=@Phone, Address=@Address, Email=@Email WHERE MemberID = @MemberID",
+                new
+                {
+                    model.Password,
+                    model.Name,
+                    model.Phone,
+                    model.Address,
+                    model.Email,
+                    model.MemberID
+                });
+        }
+        public void UpdateGUID(Members model, IDbConnection connection)
+        {
+            connection.Execute("UPDATE Members SET MemberGUID=@MemberGUID WHERE MemberID = @MemberID",
+                new
+                {
+                    model.MemberGUID,
+                    model.MemberID
+                });
         }
 
-        public void Delete(Members model)
+        public void Delete(Members model, IDbConnection connection)
         {
-            SqlConnection connection = new SqlConnection(
-                "data source=.; database=Commerce; integrated security=true");
-            var sql = "DELETE FROM Members WHERE MemberID = @MemberID";
-
-            SqlCommand command = new SqlCommand(sql, connection);
-
-            command.Parameters.AddWithValue("@MemberID", model.MemberID);
-
-            connection.Open();
-            command.ExecuteNonQuery();
-            connection.Close();
+            connection.Execute("DELETE FROM Members WHERE MemberID = @MemberID",
+                new
+                {
+                    model.MemberID
+                });
         }
 
-        public Members FindById(string MemberID)
+        public Members FindById(string MemberID, IDbConnection connection)
         {
-            IDbConnection connection = new SqlConnection(
-                "data source=.; database=Commerce; integrated security=true");
-
-            var result = connection.Query<Members>("SELECT * FROM Members WHERE MemberID = @MemberID", new { MemberID });
+            var result = connection.Query<Members>("SELECT * FROM Members WHERE MemberID = @MemberID", 
+                new
+                {
+                    MemberID
+                });
             Members member = null;
             foreach(var item in result)
             {
                 member = item;
             }
             return member;
-
-
-            //SqlConnection connection = new SqlConnection(
-            //    "data source=.; database=Commerce; integrated security=true");
-            //var sql = "SELECT * FROM Members WHERE MemberID = @MemberID";
-
-            //SqlCommand command = new SqlCommand(sql, connection);
-
-            //command.Parameters.AddWithValue("@MemberID", MemberID);
-
-            //connection.Open();
-
-            //var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
-            //var properties = typeof(Members).GetProperties();
-            //Members member = null;
-
-            //while (reader.Read())
-            //{
-            //    member = new Members();
-            //    member =  DbReaderModelBinder<Members>.Bind(reader);
-            //}
-
-            //reader.Close();
-
-            //return member;
         }
-        public IEnumerable<GetBuyerOrder> GetBuyerOrder(string memberid)
+        public IEnumerable<GetBuyerOrder> GetBuyerOrder(string memberid, IDbConnection connection)
         {
-            SqlConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
-            return connection.Query<GetBuyerOrder>("GetBuyerOrder", new { memberid }, commandType: CommandType.StoredProcedure);
+            return connection.Query<GetBuyerOrder>("GetBuyerOrder", 
+                new
+                {
+                    memberid
+                }, commandType: CommandType.StoredProcedure);
         }
-        public IEnumerable<Members> GetAll()
+        public IEnumerable<GetBuyerOrder> GetBuyerOrder(string memberid, SqlConnection connection,IDbTransaction transaction)
         {
-            IDbConnection connection = new SqlConnection(
-                "data source=.; database=Commerce; integrated security=true");
-
-            var result = connection.Query<Members>("SELECT * FROM Members");
-            var members = new List<Members>();
-            foreach(var item in result)
-            {
-                members.Add(item);
-            }
-            return members;
-
-            //SqlConnection connection = new SqlConnection(
-            //    "data source=.; database=Commerce; integrated security=true");
-            //var sql = "SELECT * FROM Members";
-
-            //SqlCommand command = new SqlCommand(sql, connection);
-            //connection.Open();
-
-            //var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
-            //var properties = typeof(Members).GetProperties();
-            //var members = new List<Members>();
-
-            //while (reader.Read())
-            //{
-            //    var member = new Members();
-            //    member = DbReaderModelBinder<Members>.Bind(reader);
-            //    members.Add(member);
-            //}
-
-            //reader.Close();
-
-            //return members;
-
+            return connection.Query<GetBuyerOrder>("GetBuyerOrder", 
+                new
+                {
+                    memberid
+                }, transaction, commandType: CommandType.StoredProcedure);
+        }
+        public IEnumerable<Members> GetAll(IDbConnection connection)
+        {
+            return connection.Query<Members>("SELECT * FROM Members");
         }
     }
 }

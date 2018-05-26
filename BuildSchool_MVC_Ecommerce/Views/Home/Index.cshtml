@@ -1,19 +1,6 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-
-@if (ViewData["user"] as string == null)
-{
-    Html.RenderAction("NotLogInBar");
-    <div id="chicks" hidden class="f">
-    </div>
-}
-else
-{
-    Html.RenderAction("LogInBar", new { user = @ViewData["user"] });
-    <div id="chicks" hidden class="t">
-    </div>
-}
 <div class="container-fluid">
     <!-- Content Row(col-3-9) -->
     <div class="row mt-3 mb-3">
@@ -33,27 +20,9 @@ else
                 @foreach (var item in ViewData["allcategory"] as IEnumerable<Category>)
                 {
                     <li class="nav-item">
-                        <a class="nav-link category" style="color: #3F4739" href="#">@item.CategoryName</a>
+                        <a class="nav-link category" id=@item.CategoryID style="color: #3F4739" >@item.CategoryName</a>
                     </li>
                 }
-                @*<li class="nav-item">
-                        <a class="nav-link" style="color: #3F4739" href="#">上衣</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" style="color: #3F4739" href="#">外套</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" style="color: #3F4739" href="#">褲子</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" style="color: #3F4739" href="#">套裝</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" style="color: #3F4739" href="#">洋裝</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" style="color: #3F4739" href="#">手套</a>
-                    </li>*@
             </ul>
         </div>
         <div class="col-1">
@@ -83,16 +52,14 @@ else
                     $(".page").html(result);
                 }
             });
-            // $(".page").load($(@@Html.RenderAction("CategoryPage", new { categoryName = "上衣1" }; ) ));
         })
         $(document).on("click", ".product", function (e) {
             console.log(e);
-            //var category = e.target.innerText;
             $(".page").empty();
             $.ajax({
                 url: "/Home/ProductPage",
                 data: {
-                    productid: e.target.name,
+                    productid: e.target.id,
                 },
                 success: function (result) {
                     $(".page").html(result);
@@ -106,9 +73,9 @@ else
         })
         $(document).on("click", "#min", function () {
             $("#count").val(function () {
-                if (parseInt($(this).val()) <= 0) {
+                if (parseInt($(this).val()) <= 1) {
 
-                    return parseInt($(this).val()) = 0;
+                    return parseInt($(this).val()) = 1;
                 }
                 else {
                     return parseInt($(this).val()) - 1;

@@ -2,6 +2,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,11 +13,12 @@ namespace CommerceTest
     [TestClass]
     public class TestFindByID
     {
+        IDbConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
         [TestMethod]
         public void Test_FindByID_Category()
         {
             var repository = new CategoryRepository();
-            var category = repository.FindById(1);
+            var category = repository.FindById(1, connection);
             Assert.IsNotNull(category);
         }
         [TestMethod]
@@ -29,14 +32,14 @@ namespace CommerceTest
         public void Test_FindByID_Employee()
         {
             var repository = new EmployeesRepository();
-            var employee = repository.FindById(1);
+            var employee = repository.FindById(1, connection);
             Assert.IsNotNull(employee);
         }
         [TestMethod]
         public void Test_FindByID_Member()
         {
             var repository = new MemberRepository();
-            var member = repository.FindById("123");
+            var member = repository.FindById("123", connection);
             Assert.IsNotNull(member);
         }
         [TestMethod]

@@ -29,26 +29,112 @@
     </style>
 </head>
 <body>
+    @if (ViewData["user"] as string == null)
+    {
+        Html.RenderAction("NotLogInBar", "Home");
+        <div id="chicks" hidden class="f">
+        </div>
+    }
+    else
+    {
+        Html.RenderAction("LogInBar", "Home", new { user = @ViewData["user"] });
+        <div id="chicks" hidden class="t">
+        </div>
+    }
     @RenderBody()
     <!-- Other Content Row -->
     <div class="container-fluid">
-        <div class="row mt-2 pt-2 text-white" style="background-color:#3F4739">
+        <!-- Other Content Row (Footer) -->
+        <div class="row mt-4 pt-2 text-white" style="background-color:#3F4739">
+            <div class="col-1"></div>
             <div class="col">
-                <h4>其他服務</h4>
-                <div class="btn-group" role="group" aria-label="Basic example">
-                    <button type="button" class="btn btn-link mr-3 text-white">Item 1</button>
-                    <button type="button" class="btn btn-link mr-3 text-white">Item 2</button>
-                    <button type="button" class="btn btn-link mr-3 text-white">Item 3</button>
-                    <button type="button" class="btn btn-link mr-3 text-white">Item 4</button>
-                    <button type="button" class="btn btn-link mr-3 text-white">Item 5</button>
-                    <button type="button" class="btn btn-link mr-3 text-white">Item 6</button>
-                    <button type="button" class="btn btn-link text-white">Item 7</button>
-                </div>
+                <h5>關於我們</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active font-weight-bold" style="color:white" href="#">關於阿畦商城</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active font-weight-bold" style="color:white" href="#">關於阿畦服飾</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active font-weight-bold" style="color:white" href="#">隱私權政策</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active font-weight-bold" style="color:white" href="#">服務條款</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active font-weight-bold" style="color:white" href="#">人才幕集</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col">
+                <h5>會員服務</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active font-weight-bold" style="color:white" href="#">加入會員</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active font-weight-bold" style="color:white" href="#">新手上路</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active font-weight-bold" style="color:white" href="#">會員分級</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active font-weight-bold" style="color:white" href="#">訂閱電子報</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active font-weight-bold" style="color:white" href="#">24小時隔日取貨</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col">
+                <h5>客服中心</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active font-weight-bold" style="color:white" href="#">查詢帳號密碼</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active font-weight-bold" style="color:white" href="#">客服信箱</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active font-weight-bold" style="color:white" href="#">客服心QA</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active font-weight-bold" style="color:white" href="#">連絡我們</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col">
+                <h5>合作提案</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active font-weight-bold" style="color:white" href="#">企業採購</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active font-weight-bold" style="color:white" href="#">福利平台</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active font-weight-bold" style="color:white" href="#">加入供應商</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active font-weight-bold" style="color:white" href="#">AP策略聯盟</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active font-weight-bold" style="color:white" href="#">異業合作</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row pt-2 text-white" style="background-color:#3F4739">
+            <div class="col mt-4">
+                <h5 style="text-align: center;">客戶服務專線：0800 000 001 &nbsp; 傳真：0800 000 002 &nbsp; 服務時間：週一 ~ 週六：8:00 ~ 19:00，例假日：9:00 ~ 18:00，全年無休</h5>
+                <h5 style="text-align: center;">R7數位科技股份有限公司 &nbsp; 地址：台灣300新竹市五福路二段707號 S111 Build School本部</h5>
+                <h5 style="text-align: center;">Copyright &copy; since 2018 r7.com.tw All Rights Resvered</h5>
             </div>
         </div>
     </div>
 
-    
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

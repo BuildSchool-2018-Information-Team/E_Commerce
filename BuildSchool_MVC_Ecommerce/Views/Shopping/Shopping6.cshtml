@@ -2,6 +2,147 @@
 @{
     ViewBag.Title = "Shopping6";
 }
+<div class="container-fluid">
+    <!-- Title Row(Logo? & Navbar) 網頁的Header-->
+    @*<div class="row" style="background-color:#3F4739">
+        <div class="col-sm-12">
+            <nav class="navbar navbar-expand-sm navbar-light">
+                <img src="https://github.com/MeCBing/BuildSchool/blob/master/PICTURE/LOGO_1.png?raw=true" class="img-fluid" style="max-width:100%; width:5%; height:auto;">
+                <a class="navbar-brand font-weight-bold text-white" href="#">阿畦服飾</a>
+                <button class="navbar-toggler hidden-lg-up" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="collapsibleNavId">
+                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                        <li class="nav-item active">
+                            <a class="nav-link ml-5 mr-3 text-white" href="/Home/Index">
+                                首頁
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown ml-3 mr-5">
+                            <a class="nav-link dropdown-toggle text-white" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">優惠活動</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownId">
+                                <a class="dropdown-item" href="#">優惠活動 1</a>
+                                <a class="dropdown-item" href="#">優惠活動 2</a>
+                            </div>
+                        </li>
+                    </ul>
+                    <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="text" placeholder="產品搜尋">
+                        <button class="btn btn-outline-warning my-2 my-sm-0 text-white" type="submit">搜尋</button>
+                    </form>
+                    <ul class="navbar-nav mr-auto ml-5 mt-2 mt-lg-0">
+                        <li class="nav-item ml-5">
+                            <a id="car" class="nav-link text-white" href="/Shopping/Index"> 購物車 </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white ml-5" href="#"> </a>
+                        </li>
+                         已登入：會員專區 
+                        <li class="nav-item dropdown ml-3 mr-5">
+                            <a class="nav-link dropdown-toggle text-white" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@ViewData["user"]</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownId">
+                                <a class="dropdown-item" href="#">查詢訂單內容</a>
+                                <a class="dropdown-item" href="#">查詢/修改會員</a>
+                                @Html.ActionLink("登出", "LogOut", "Home", new { @class = "dropdown-item" })
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>*@
+    <div class="row mt-4">
+        <div class="col-9">
+            <div class="row">
+                <div class="col-3">
+                    <H5>
+                        1.確認購物車
+                    </H5>
+                </div>
+                <div class="col-3">
+                    <H5>2.運送、付款資料確認</H5>
+                </div>
+                <div class="col-3">
+                    <H5>3.確認訂單資料</H5>
+                </div>
+                <div class="col-2">
+                    <h5>
+                        4.完成訂單
+                        <i class="fas fa-flag"></i>
+                    </h5>
+                </div>
+            </div>
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
+            </div>
+            <ul class="list-group mt-4 " align="center" valign="center">
+                <li class="list-group-item active">
+                    <div class="form-group col-md-12">
+                        <h4>確認，已接收訂單。<i class="fas fa-check"></i></h4>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-8">
 
-<h2>Shopping6</h2>
+                        </div>
+                        <div class="col-4">
+                            <a id="return" type="button" class="btn btn-dark align-middle" href="/Home/Index"></a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!-- Ads (廣告) -->
+        <div class="col mt-2">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <div class="card" style="width: 12rem;">
+                        <img class="card-img-top" src="http://im.uniqlo.com/images/tw/uq/pc/goods/412189/item/03_412189_middles.jpg" alt="Card image cap">
+                        <div class="card-body">
+                            <a href="#">MARVEL 印花T恤</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="card" style="width: 12rem;">
+                        <img class="card-img-top" src="http://im.uniqlo.com/images/tw/uq/pc/goods/412190/item/00_412190_middles.jpg" alt="Card image cap">
+                        <div class="card-body">
+                            <a href="#">MARVEL 印花T恤</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="card" style="width: 12rem;">
+                        <img class="card-img-top" src="http://im.uniqlo.com/images/tw/uq/pc/goods/412191/item/03_412191_middles.jpg" alt="Card image cap">
+                        <div class="card-body">
+                            <a href="#">MARVEL 印花T恤</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    $(function () {
+        fun(5);
+    })
+    var fun = function (i) {
+        if (i > 0) {
+            setTimeout(function () {
+                $("#return").html(i+"秒返回首頁");
+                i--;
+                fun(i);
+            }, 1000);
 
+        }
+        if (i == 0) {
+            location.href = "/Home/Index";
+        }
+    }
+</script>

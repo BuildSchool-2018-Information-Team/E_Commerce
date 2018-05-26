@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -31,6 +32,10 @@ namespace BuildSchool_MVC_Ecommerce.Controllers
                 var user = JSONSerializer.Deserialize<User>(json);
                 ViewData["user"] = user.Username;
             }
+            return View();
+        }
+        public ActionResult NoShoppingCar()
+        {
             return View();
         }
         public ActionResult PutInCookie(string productid, string color, string size, string Quantity)
@@ -158,13 +163,88 @@ namespace BuildSchool_MVC_Ecommerce.Controllers
                 user = JSONSerializer.Deserialize<User>(json1);
                 string json2 = HttpUtility.UrlDecode(Request.Cookies["ShipData"].Value);
                 ship = JSONSerializer.Deserialize<ShipData>(json2);
+                SqlConnection connection = new SqlConnection("data source=.; database=Commerce; integrated security=true");
+                connection.Open();
+                using (var transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        var order = new Orders()
+                        {
+                            MemberID = user.UserID,
+                            EmployeeID = 1,
+                            OrderDate = DateTime.Now,
+                            Discount = 1,
+                            ReceiptedDate = null,
+                            ShipName = ship.ShipName,
+                            ShipPhone = ship.ShipPhone,
+                            ShipAddress = ship.ShipAddress,
+                            ShippedDate = null,
+                            Status = "未出貨"
+                        };
+                        var orderrepository = new OrdersRepository();
+                        orderrepository.Create(order, connection, transaction);
+                        var memberrepository = new MemberRepository();
+                        var memberorder = memberrepository.GetBuyerOrder(user.UserID, connection, transaction);
+                        var lastordeer = memberorder.First();
+                        var orderdetailrepository = new OrderDetailsRepository();
+                        foreach (var item in shopping)
+                        {
+                            OrderDetails od = new OrderDetails()
+                            {
+                                OrderID = lastordeer.OrderID,
+                                ProductFormatID = item.ProductFormatID,
+                                Quantity = item.Quantity,
+                                UnitPrice = item.UnitPrice
+                            };
+                            orderdetailrepository.Create(od, connection, transaction);
+                        }                        
+                        transaction.Commit();
+                        return RedirectToAction("Shopping6", "Shopping");
+                    }
+                    catch (Exception)
+                    {
+                        transaction.Rollback();
+                        return RedirectToAction("", "Shopping");
+                    }
+                    
+                }
             }
-            
+            else
+            {
+                return RedirectToAction("", "Shopping");
+            }
             //做order跟orderdetail
-            return RedirectToAction("Shopping6", "Shopping");
         }
         public ActionResult Shopping6()
         {
+            JavaScriptSerializer JSONSerializer = new JavaScriptSerializer();
+            if (Request.Cookies["shoppingcar"] == null)
+            {
+
+            }
+            else
+            {
+                var cookie1 = Request.Cookies["shoppingcar"];
+                cookie1.Expires = DateTime.Now;
+                Response.Cookies.Add(cookie1);
+            }
+            if (Request.Cookies["ShipData"] == null)
+            {
+
+            }
+            else
+            {
+                var cookie2 = Request.Cookies["ShipData"];
+                cookie2.Expires = DateTime.Now;
+                Response.Cookies.Add(cookie2);
+            }
+            if (Request.Cookies["user"] != null)
+            {
+                string json = HttpUtility.UrlDecode(Request.Cookies["user"].Value);
+                var user = JSONSerializer.Deserialize<User>(json);
+                ViewData["user"] = user.Username;
+            }
             //新增成功跳轉
             return View();
         }

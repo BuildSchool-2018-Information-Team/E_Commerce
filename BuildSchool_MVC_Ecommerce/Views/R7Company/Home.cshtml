@@ -1,0 +1,186 @@
+﻿
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/Employee_Layout.cshtml";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <nav class="nav justify-content-left">
+                <a class="nav-link dropdown-item" href="#">訂單</a>
+                <a class="nav-link dropdown-item" href="#">員工</a>
+                <a class="nav-link dropdown-item" href="#">商品</a>
+                <a class="nav-link dropdown-item" href="#">庫存</a>
+            </nav>
+            <div class="dropdownDiv">
+                <ul>
+                    <li>
+                        <a class="employeeQueryOrderByStatus" href="Employee/employeeQueryOrderByStatus.html">查詢訂單 (依照狀態)</a><br />
+                        <a class="employeeQueryOrderByDate" href="Employee/employeeQueryOrderByDate.html">查詢訂單 (依照時間)</a><br />
+                        <a class="employeeQueryOrderByMemberID" href="Employee/employeeQueryOrderByMemberID.html">查詢訂單 (依照會員 ID 與時間)</a>
+                    </li>
+                    <li>
+                        <a class="employeeQueryMember" href="Employee/employeeQueryMember.html">查看員工資料</a><br />
+                        <a class="employeeModifyMemberInfo" href="Employee/employeeModifyMemberInfo.html">修改員工資料</a><br />
+                        <a class="employeeAddEmployee" href="Employee/employeeAddEmployee.html">新增員工</a>
+                    </li>
+                    <li>
+                        <a href="#">新增商品</a><br />
+                        <a class="employeeAddCategory" href="Employee/employeeAddCategory.html">新增商品種類</a><br />
+                    </li>
+                    <li>
+                        <a class="employeeQueryStock" href="Employee/employeeQueryStock.html">查詢沒有庫存的商品</a><br />
+                        <a class="employeeModifyStock" href="Employee/employeeModifyStock.html">修改庫存</a><br />
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="page">
+        @{ Html.RenderAction("HomePage"); }
+    </div>
+</div>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    $(function () {
+        $(document).on("click", ".employeeQueryOrderByStatus", function (e) {
+            console.log(e.target.innerText);
+            var category = e.target.innerText;
+            $(".page").empty();
+            $.ajax({
+                url: "/Home/CategoryPage",
+                data: {
+                    categoryName: e.target.innerText,
+                },
+                success: function (result) {
+                    $(".page").html(result);
+                }
+            });
+            // $(".page").load($(@@Html.RenderAction("CategoryPage", new { categoryName = "上衣1" }; ) ));
+        })
+        $(document).on("click", ".employeeQueryOrderByDate", function (e) {
+            console.log(e);
+            //var category = e.target.innerText;
+            $(".page").empty();
+            $.ajax({
+                url: "/Home/ProductPage",
+                data: {
+                    productid: e.target.name,
+                },
+                success: function (result) {
+                    $(".page").html(result);
+                }
+            });
+        })
+        $(document).on("click", ".employeeQueryOrderByMemberID", function (e) {
+            console.log(e);
+            //var category = e.target.innerText;
+            $(".page").empty();
+            $.ajax({
+                url: "/Home/ProductPage",
+                data: {
+                    productid: e.target.name,
+                },
+                success: function (result) {
+                    $(".page").html(result);
+                }
+            });
+        })
+        $(document).on("click", ".employeeQueryMember", function (e) {
+            console.log(e.target.innerText);
+            var category = e.target.innerText;
+            $(".page").empty();
+            $.ajax({
+                url: "/Home/CategoryPage",
+                data: {
+                    categoryName: e.target.innerText,
+                },
+                success: function (result) {
+                    $(".page").html(result);
+                }
+            });
+            // $(".page").load($(@@Html.RenderAction("CategoryPage", new { categoryName = "上衣1" }; ) ));
+        })
+        $(document).on("click", ".employeeModifyMemberInfo", function (e) {
+            console.log(e);
+            //var category = e.target.innerText;
+            $(".page").empty();
+            $.ajax({
+                url: "/Home/ProductPage",
+                data: {
+                    productid: e.target.name,
+                },
+                success: function (result) {
+                    $(".page").html(result);
+                }
+            });
+        })
+        $(document).on("click", ".employeeAddEmployee", function (e) {
+            console.log(e);
+            //var category = e.target.innerText;
+            $(".page").empty();
+            $.ajax({
+                url: "/Home/ProductPage",
+                data: {
+                    productid: e.target.name,
+                },
+                success: function (result) {
+                    $(".page").html(result);
+                }
+            });
+        })
+        $(document).on("click", ".employeeAddCategory", function (e) {
+            console.log(e.target.innerText);
+            var category = e.target.innerText;
+            $(".page").empty();
+            $.ajax({
+                url: "/Home/CategoryPage",
+                data: {
+                    categoryName: e.target.innerText,
+                },
+                success: function (result) {
+                    $(".page").html(result);
+                }
+            });
+            // $(".page").load($(@@Html.RenderAction("CategoryPage", new { categoryName = "上衣1" }; ) ));
+        })
+        $(document).on("click", ".employeeQueryStock", function (e) {
+            console.log(e);
+            //var category = e.target.innerText;
+            $(".page").empty();
+            $.ajax({
+                url: "/Home/ProductPage",
+                data: {
+                    productid: e.target.name,
+                },
+                success: function (result) {
+                    $(".page").html(result);
+                }
+            });
+        })
+        $(document).on("click", ".employeeModifyStock", function (e) {
+            console.log(e);
+            //var category = e.target.innerText;
+            $(".page").empty();
+            $.ajax({
+                url: "/Home/ProductPage",
+                data: {
+                    productid: e.target.name,
+                },
+                success: function (result) {
+                    $(".page").html(result);
+                }
+            });
+        })
+        $(".col-sm-12")
+            .mouseover(function () {
+                $(".dropdownDiv").css("top", "3em");
+            })
+            .mouseleave(function () {
+                $(".dropdownDiv").css("top", "-10em");
+            });
+    })
+</script>
+
